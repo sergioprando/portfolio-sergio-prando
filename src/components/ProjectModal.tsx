@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { CardRect } from "@/components/Work";
+import FluxoAutomacao from "@/components/FluxoAutomacao";
+import JornadaAsIs from "@/components/JornadaAsIs";
+import JornadaToBe from "@/components/JornadaToBe";
 
 interface Props {
   projectId: number;
@@ -13,37 +16,85 @@ interface Props {
 }
 
 /* ── Bradesco content data ── */
+const bradescoPainPoints = [
+  "7 dias de espera para uma simples aprovação de apólice — tempo suficiente para o cliente desistir",
+  "Todo o processo crítico de retenção dependia de uma única planilha, sem controle de versão ou rastreabilidade",
+  "Cada etapa exigia intervenção humana manual, gerando gargalos invisíveis e perda de receita silenciosa",
+  "Documentos trafegavam por e-mail e aprovações eram feitas sem fluxo definido, criando retrabalho constante",
+  "O time operava isolado dos demais sistemas do banco, tornando qualquer automação inviável no curto prazo",
+];
+
 const bradesco = {
   stats: [
-    { value: "-7 Dias",   label: "De espera para resposta do time Bradesco" },
-    { value: "+19%",      label: "Na Reversão de Cancelamento" },
-    { value: "-42%",      label: "No retrabalho do Setor" },
+    { value: "D+7 > D+0", label: "Dias de espera para resposta o time Bradesco" },
+    { value: "+19%",       label: "Na Reversão de Cancelamento" },
+    { value: "-42%",       label: "No retrabalho do Setor" },
   ],
   strategyIntro: "O desafio era transformar um processo Enterprise complexo em algo eficiente. Estruturei o processo de design para garantir a entrega de valor contínuo:",
   strategy: [
-    { title: "Discovery Qualitativo",        text: "Entrevistamos stakeholders e usuários para priorizar os problemas que geravam maior impacto na reversão de cancelamentos e entender todo o processo As Is." },
-    { title: "Mapeamento da Jornada As Is",  text: "Junto ao time Capgemini, liderei o mapeamento da Jornada As Is para entender as dores e complicações do fluxo de trabalho atual e mapear possíveis oportunidades de melhoria." },
-    { title: "Priorização Técnica (MOSCOW)", text: "Realizamos a priorização de funcionalidades com os times de Arquitetura e Negócios, garantindo que o MVP focasse no que traria ROI imediato para a Capgemini/Bradesco." },
-    { title: "Workshop To Be",               text: "Junto aos Stakeholders e time técnico, realizamos um Workshop para mapear a jornada To Be com todas as melhorias e priorizações para garantir a entrega de um MVP que gere valor e impacto." },
-    { title: "Fluxo de Automação",           text: "Junto ao time de arquitetura, modelamos o fluxograma do processo futuro para validar a viabilidade técnica da automação antes de investir tempo em UI." },
-    { title: "UI Validada",                  text: "Prototipagem da solução focada na usabilidade e na adoção rápida pela equipe que estava acostumada ao Excel." },
+    {
+      title: "Discovery",
+      text: "Entrevistamos stakeholders e analistas para priorizar os problemas que geravam maior impacto na reversão de cancelamentos e entender todo o processo As Is.",
+    },
+    {
+      title: "Mapeamento da Jornada As Is",
+      text: "Junto ao time Capgemini eu Liderei o mapeamento da Jornada As Is, para entender as dores e complicações do fluxo de trabalho atual e mapear possíveis oportunidades de melhoria.",
+    },
+    {
+      title: "Priorização Técnica (MOSCOW)",
+      text: "Realizamos a priorização de funcionalidades com os times de Arquitetura e Negócios, garantindo que o MVP fosse o mais assertivo possível.",
+      bullets: [
+        "Duas sessões de priorização com 6 participantes entre Arquitetura, Negócios e UX. Cada funcionalidade foi avaliada contra dois critérios: impacto na reversão de cancelamentos e viabilidade técnica no curto prazo.",
+        "Das funcionalidades mapeadas, 40% foram classificadas como Must Have para o MVP, concentrando o escopo no core do processo de retenção.",
+      ],
+    },
+    {
+      title: "Workshop To Be",
+      text: "Juntos aos Stakeholders e time técnico realizamos um Workshop para mapear a jornada To Be com todas as melhorias e priorizações para garantir a entrega de um MVP que gere valor e impacto.",
+    },
+    {
+      title: "Fluxo de Automação",
+      text: "Junto ao time de arquitetura modelamos o fluxograma do processo futuro para validar a viabilidade técnica da automação antes de investir tempo em UI.",
+    },
+    {
+      title: "UI Validada",
+      text: "Realizamos testes de usabilidade e mapa de calor com o time técnico de Retentômetro. Com a Prototipagem testada a solução focada na usabilidade e na adoção rápida pela equipe que estava acostumada ao Excel.",
+    },
   ],
+  resultsIntro: "O Discovery técnico e o design focado em automação, não entregamos apenas telas, mas uma nova capacidade operacional para a Bradesco Seguros. A transição do caos das planilhas para a precisão do Salesforce via Mulesoft permitiu que o time de retenção agisse com a velocidade que o mercado Enterprise exige.",
   results: [
-    { highlight: "Eficiência de Tempo",    text: "Redução de 7 dias para D+0 no ciclo de atendimento ao cancelamento, agilizando decisões e recuperando receita direta." },
-    { highlight: "Conversão de Negócios",  text: "Aumento de 19% na retenção de cancelamentos com abordagem orientada a dados e automação da oferta de contrapropostas." },
-    { highlight: "Otimização Operacional", text: "Redução de 42% no retrabalho do setor ao eliminar processos manuais e centralizar dados via Salesforce CRM." },
+    {
+      highlight: "Eficiência de Tempo:",
+      text: "Redução drástica de 7 dias de espera para 0 dias. Eliminamos a 'janela da angústia' do cliente B2B, permitindo que a contraproposta fosse gerada instantaneamente, capturando o cliente no momento crítico da decisão.",
+    },
+    {
+      highlight: "Conversão de Negócio:",
+      text: "Aumento de 19% na Reversão de Cancelamentos. Este número prova que o design não foi apenas estético. Ao reduzir a fricção e o tempo de resposta, impactamos diretamente o OKR principal do projeto, recuperando receita de forma proativa.",
+    },
+    {
+      highlight: "Otimização Operacional:",
+      text: "Redução de 42% no Retrabalho do Setor. Liderei o design focado em usabilidade e adoção rápida. Ao eliminar planilhas e processos manuais morosos, devolvemos quase metade do tempo produtivo da equipe, que agora foca em análises estratégicas, não em tarefas operacionais.",
+    },
   ],
   toolkit: [
     { name: "Adobe XD",        icon: "/toolkit-xd.png"        },
+    { name: "Hotjar",          icon: "/toolkit-hotjar.png"     },
+    { name: "Microsoft Teams", icon: "/toolkit-teams.png"      },
     { name: "Miro",            icon: "/toolkit-miro.png"       },
     { name: "Salesforce CRM",  icon: "/toolkit-salesforce.png" },
-    { name: "Microsoft Teams", icon: "/toolkit-teams.png"      },
   ],
 };
 
 function BradescoContent({ onClose }: { onClose: () => void }) {
+  const [showJornada, setShowJornada] = useState(false);
+  const [showJornadaToBe, setShowJornadaToBe] = useState(false);
+
   return (
+    <>
+    {showJornada && <JornadaAsIs onClose={() => setShowJornada(false)} />}
+    {showJornadaToBe && <JornadaToBe onClose={() => setShowJornadaToBe(false)} />}
     <div className="h-full overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {/* Sticky header */}
       <div className="sticky top-0 z-10 bg-[#F7F8F5]/95 backdrop-blur-sm border-b border-black/10 py-4">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -61,10 +112,9 @@ function BradescoContent({ onClose }: { onClose: () => void }) {
       </div>
 
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 pb-20">
-        <div className="mt-10">
-          <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">Impacto do Projeto</h3>
-        </div>
-        <div className="grid grid-cols-3 gap-4 md:gap-10 py-8 border-b border-black/10">
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-4 md:gap-10 mt-10 py-8 border-b border-black/10">
           {bradesco.stats.map((s) => (
             <div key={s.value}>
               <p className="text-xl md:text-[2.5rem] font-bold leading-none text-[#1F2937]">{s.value}</p>
@@ -73,74 +123,221 @@ function BradescoContent({ onClose }: { onClose: () => void }) {
           ))}
         </div>
 
-        <div className="mt-10">
+        {/* Desafio do Projeto */}
+        <div className="mt-12">
           <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">Desafio do Projeto</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             <div className="rounded-2xl overflow-hidden bg-[#D0D2CD]">
-              <img src="/bradesco-foto-equipe.png" alt="Bradesco Seguros — Equipe Retentômetro" className="w-full h-full object-cover" />
+              <img src="/retentometroDesafio.png" alt="Bradesco Seguros — Desafio Retentômetro" className="w-full h-full object-cover" />
             </div>
             <div className="space-y-4">
               <p className="text-base leading-relaxed text-[#1F2937]">
-                O Bradesco Seguros possuía um time de retenção sobrecarregado, pois o volume de solicitações B2B era totalmente manual, gerando atrasos de até 7 dias e perda direta de receita por cancelamentos não tratados a tempo.
+                Na Bradesco Seguros, o time de retenção lutava diariamente contra o churn de apólices B2B usando processos manuais que geravam atrasos críticos de 7 dias e perda direta de receita.
               </p>
               <p className="text-base leading-relaxed text-[#1F2937]">
-                A Capgemini integrou o time conduzindo um Discovery profundo para mapear as dores específicas e os desafios da transição para um processo escalável e automatizado via Salesforce CRM.
+                A Capgemini me integrou a este cenário com uma missão clara: conduzir um Discovery profundo para mapear as dores operacionais e viabilizar a transição para um ecossistema automatizado via Salesforce CRM.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-[1fr_200px] gap-10">
-          <div>
-            <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">
-              Estratégia de Design focada em Valor e Viabilidade
-            </h3>
-            <p className="text-base leading-relaxed text-[#1F2937] mb-5">{bradesco.strategyIntro}</p>
-            <ol className="space-y-5">
-              {bradesco.strategy.map((item, i) => (
-                <li key={i} className="flex gap-4">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1F2937] text-white text-[11px] font-bold flex items-center justify-center mt-0.5">
-                    {i + 1}
-                  </span>
-                  <div>
-                    <span className="font-semibold text-base leading-relaxed text-[#1F2937]">{item.title}: </span>
-                    <span className="text-base leading-relaxed text-[#1F2937]">{item.text}</span>
+        {/* Estratégia */}
+        <div className="mt-14">
+          <h3 className="text-[22px] font-normal text-[#1F2937] mb-3">
+            Estratégia de Design focada em Valor e Viabilidade
+          </h3>
+          <p className="text-base leading-relaxed text-[#1F2937] mb-10">{bradesco.strategyIntro}</p>
+
+          {/* Step 1 — Discovery */}
+          <div className="mb-10">
+            {/* Duas colunas: card dores (esq) + imagem (dir) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* Card esquerdo — fundo cinza + borda vermelha esquerda + todas as bordas arredondadas */}
+              <div className="bg-[#F0F1ED] border-l-4 border-[#CC0000] rounded-xl px-5 py-5 flex flex-col justify-between">
+                <div>
+                  {/* Número + título dentro do card */}
+                  <div className="flex gap-3 items-center mb-4">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1F2937] text-white text-[11px] font-bold flex items-center justify-center">1</span>
+                    <span className="text-base font-semibold text-[#1F2937]">Discovery</span>
                   </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <div>
-            <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">Design Toolkit</h3>
-            <div className="flex flex-col gap-4">
-              {bradesco.toolkit.map((tool) => (
-                <div key={tool.name} className="flex items-center gap-3">
-                  <img src={tool.icon} alt={tool.name} className="w-10 h-10 rounded-xl object-contain flex-shrink-0 bg-white" />
-                  <span className="text-sm text-[#1F2937]">{tool.name}</span>
+                  <p className="text-sm leading-relaxed text-[#1F2937] mb-4">
+                    Entrevistamos stakeholders e analistas para priorizar os problemas que geravam maior impacto na reversão de cancelamentos e entender todo o processo As Is.
+                  </p>
+                  <p className="text-sm font-semibold text-[#1F2937] mb-3">Principais Dores Mapeadas:</p>
+                  <ul className="space-y-2 mb-4">
+                    {bradescoPainPoints.map((point, i) => (
+                      <li key={i} className="flex gap-2 items-start text-sm leading-relaxed text-[#1F2937]">
+                        <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#1F2937]/50" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              ))}
+                <p className="text-sm text-[#1F2937]/60 italic">Entrevista em profundidade | 16 pessoas | Tempo Médio 30min</p>
+              </div>
+
+              {/* Imagem direita */}
+              <div className="rounded-xl overflow-hidden bg-[#F7F8F5] flex items-center justify-center">
+                <img
+                  src="/EntrevistaBradescoSeguros.png"
+                  alt="Entrevista em profundidade — Bradesco Seguros"
+                  className="w-full h-auto object-contain block"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Step 2 — Jornada As Is */}
+          <div className="mb-10">
+            <div className="flex gap-4 items-start mb-5">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1F2937] text-white text-[11px] font-bold flex items-center justify-center mt-0.5">2</span>
+              <p className="text-base leading-relaxed text-[#1F2937]">
+                Junto ao time Capgemini eu Liderei o mapeamento da Jornada As Is, para entender as dores e complicações do fluxo de trabalho atual e mapear possíveis oportunidades de melhoria.
+              </p>
+            </div>
+            <div className="overflow-hidden">
+              <img src="/TimeRetentometro.png" alt="Time Retentômetro — Jornada As Is" className="w-full object-cover" />
+            </div>
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={() => setShowJornada(true)}
+                className="rounded-full border border-[#1F2937] px-6 py-1.5 text-sm font-normal text-[#1F2937] bg-transparent transition-all duration-200 hover:bg-[#1F2937] hover:text-white cursor-pointer">
+                Iniciar Jornada As Is
+              </button>
+            </div>
+          </div>
+
+          {/* Step 3 — MOSCOW */}
+          <div className="mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* Card esquerdo — cinza sem borda vermelha */}
+              <div className="bg-[#F0F1ED] rounded-xl px-5 py-5 flex flex-col justify-between">
+                <div>
+                  <div className="flex gap-3 items-center mb-4">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1F2937] text-white text-[11px] font-bold flex items-center justify-center">3</span>
+                    <span className="text-base font-semibold text-[#1F2937]">Priorização Técnica (MOSCOW)</span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-[#1F2937] mb-4">
+                    Realizamos a priorização de funcionalidades com os times de Arquitetura e Negócios, garantindo que o MVP fosse o mais assertivo possível.
+                  </p>
+                  <div className="space-y-2">
+                    {(bradesco.strategy[2] as { bullets?: string[] }).bullets?.map((b, i) => (
+                      <div key={i} className="flex gap-2 items-start text-sm leading-relaxed text-[#1F2937]">
+                        <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#1F2937]/50" />
+                        {b}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Imagem direita */}
+              <div className="rounded-xl overflow-hidden bg-[#F7F8F5]">
+                <img
+                  src="/MOSCOWRetentometro.png"
+                  alt="MOSCOW — Priorização Retentômetro"
+                  className="w-full h-auto object-contain block"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Step 4 — Workshop To Be */}
+          <div className="mb-10">
+            <div className="flex gap-4 items-start mb-5">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1F2937] text-white text-[11px] font-bold flex items-center justify-center mt-0.5">4</span>
+              <p className="text-base leading-relaxed text-[#1F2937]">
+                Juntos aos Stakeholders e time técnico realizamos um Workshop para mapear a jornada To Be com todas as melhorias e priorizações para garantir a entrega de um MVP que gere valor e impacto.
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-xl">
+              <img
+                src="/JornadaToBeRetentometro.png"
+                alt="Jornada To Be — Retentômetro"
+                className="w-full h-auto object-contain block"
+              />
+            </div>
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={() => setShowJornadaToBe(true)}
+                className="rounded-full border border-[#1F2937] px-6 py-1.5 text-sm font-normal text-[#1F2937] bg-transparent transition-all duration-200 hover:bg-[#1F2937] hover:text-white cursor-pointer">
+                Iniciar Jornada To Be
+              </button>
+            </div>
+          </div>
+
+          {/* Step 5 — Fluxo de Automação */}
+          <div className="mb-10">
+            <div className="flex gap-4 items-start mb-5">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1F2937] text-white text-[11px] font-bold flex items-center justify-center mt-0.5">5</span>
+              <p className="text-base leading-relaxed text-[#1F2937]">
+                <span className="font-semibold">Fluxo de Automação: </span>
+                Junto ao time de arquitetura modelamos o fluxograma do processo futuro para validar a viabilidade técnica da automação antes de investir tempo em UI.
+              </p>
+            </div>
+            <div className="rounded-xl overflow-hidden bg-white p-4">
+              <FluxoAutomacao />
+            </div>
+          </div>
+
+          {/* Step 6 — UI Validada */}
+          <div className="mb-10">
+            <div className="flex gap-4 items-start mb-5">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1F2937] text-white text-[11px] font-bold flex items-center justify-center mt-0.5">6</span>
+              <p className="text-base leading-relaxed text-[#1F2937]">
+                <span className="font-semibold">UI Validada: </span>
+                Realizamos testes de usabilidade e mapa de calor com o time técnico de Retentômetro. Com a Prototipagem testada a solução focada na usabilidade e na adoção rápida pela equipe que estava acostumada ao Excel.
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-xl">
+              <img
+                src="/RetentometroMapaDeCalor.png"
+                alt="Mapa de Calor — UI Validada Retentômetro"
+                className="w-full h-auto object-contain block"
+              />
             </div>
           </div>
         </div>
 
-        <div className="mt-12">
+        {/* Resultado e Entrega de Valor */}
+        <div className="mt-14 pt-10 border-t border-black/10">
           <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">Resultado e Entrega de Valor</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-[#D0D2CD]">
-              <img src="/bradesco-proto1.png" alt="Bradesco Retentômetro — Dashboard" className="w-full h-full object-cover object-center" />
+            <div className="rounded-2xl overflow-hidden bg-[#D0D2CD]">
+              <img src="/bradesco-proto1.png" alt="Bradesco Retentômetro — Dashboard Final" className="w-full object-cover object-center" />
             </div>
-            <div className="space-y-6">
-              {bradesco.results.map((r) => (
-                <div key={r.highlight}>
-                  <p className="font-semibold text-base text-[#1F2937]">{r.highlight}</p>
-                  <p className="mt-1 text-base leading-relaxed text-[#1F2937]">{r.text}</p>
-                </div>
-              ))}
+            <div className="space-y-5">
+              <p className="text-base leading-relaxed text-[#1F2937]">{bradesco.resultsIntro}</p>
+              <div className="space-y-4">
+                {bradesco.results.map((r) => (
+                  <div key={r.highlight} className="flex gap-2 items-start">
+                    <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#1F2937]" />
+                    <p className="text-base leading-relaxed text-[#1F2937]">
+                      <span className="font-semibold">{r.highlight}</span> {r.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Design Toolkit */}
+        <div className="mt-14 pt-10 border-t border-black/10">
+          <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">Design Toolkit</h3>
+          <div className="flex flex-wrap gap-6">
+            {bradesco.toolkit.map((tool) => (
+              <div key={tool.name} className="flex items-center gap-3">
+                <img src={tool.icon} alt={tool.name} className="w-10 h-10 rounded-xl object-contain flex-shrink-0 bg-white" />
+                <span className="text-sm text-[#1F2937]">{tool.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
+    </>
   );
 }
 
