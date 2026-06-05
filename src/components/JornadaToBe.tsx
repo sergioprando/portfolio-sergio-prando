@@ -154,8 +154,8 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
   const MERGE_X = 740;
   const R_END  = 1110;
 
-  // Triagem sub-items Y
-  const TR_Y = [420, 510];
+  // Triagem sub-items Y (shifted +320 from original)
+  const TR_Y = [740, 830];
 
   // Section split
   const SPLIT_Y = TR_Y[1] + 60;
@@ -278,7 +278,7 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
               stroke={TEAL} strokeWidth="3" />
             <line x1={MERGE_X} y1={BOT_Y} x2={MERGE_X} y2={MID_Y}
               stroke={TEAL} strokeWidth="3" />
-            <line x1={MERGE_X} y1={MID_Y} x2={R_END} y2={MID_Y}
+            <line x1={MERGE_X} y1={MID_Y} x2={N1.triage} y2={MID_Y}
               stroke={TEAL} strokeWidth="3" />
 
             {/* ── Actor vertical connector → top of journey ── */}
@@ -307,8 +307,8 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             <line x1={N1.notif} y1={243} x2={N1.notif} y2={TOP_Y - 9} stroke={TEAL} strokeWidth="2" />
 
             {/* ── Down connectors: extr and notif dots → MID_Y flow ── */}
-            <line x1={N1.extr}  y1={TOP_Y + 9} x2={N1.extr}  y2={MID_Y - 28} stroke={TEAL} strokeWidth="2" />
-            <line x1={N1.notif} y1={TOP_Y + 9} x2={N1.notif} y2={MID_Y}       stroke={TEAL} strokeWidth="2" />
+            <line x1={N1.extr}  y1={TOP_Y + 9} x2={N1.extr}  y2={MID_Y} stroke={TEAL} strokeWidth="2" />
+            <line x1={N1.notif} y1={TOP_Y + 9} x2={N1.notif} y2={MID_Y} stroke={TEAL} strokeWidth="2" />
 
             {/* ── 4 dots on TOP_Y — one per card ── */}
             <Dot cx={N1.dia1}  cy={TOP_Y} />
@@ -357,11 +357,11 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
                 { t: "rentabilidade do plano e saúde." },
               ]} />
 
-            {/* ── Extração de Dados (merged) ── */}
-            <INode cx={N1.extr} cy={MID_Y} c={TEAL} icon="computer" />
-            <text x={N1.extr} y={MID_Y + 41} textAnchor="middle"
+            {/* ── Extração de Dados — moved to old Triagem X position ── */}
+            <INode cx={N1.triage} cy={MID_Y} c={TEAL} icon="computer" />
+            <text x={N1.triage} y={MID_Y + 41} textAnchor="middle"
               fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Extração</text>
-            <text x={N1.extr} y={MID_Y + 53} textAnchor="middle"
+            <text x={N1.triage} y={MID_Y + 53} textAnchor="middle"
               fontSize="10.5" fill={TEAL_DARK} fontWeight="700">de Dados</text>
 
             {/* ── Card 3: MDL ── */}
@@ -372,17 +372,21 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
                 { t: "do Sales Force." },
               ]} />
 
-            {/* ── Triagem ── */}
-            <INode cx={N1.triage} cy={MID_Y} c={TEAL} icon="triagem" />
-            <text x={N1.triage} y={MID_Y + 41} textAnchor="middle"
+            {/* ── Vertical connector: Extração → Triagem (320px down) ── */}
+            <line x1={N1.triage} y1={MID_Y + 28} x2={N1.triage} y2={MID_Y + 320 - 28}
+              stroke={TEAL} strokeWidth="3" />
+
+            {/* ── Triagem — shifted 320px down ── */}
+            <INode cx={N1.triage} cy={MID_Y + 320} c={TEAL} icon="triagem" />
+            <text x={N1.triage} y={MID_Y + 320 + 41} textAnchor="middle"
               fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Triagem</text>
-            <text x={N1.triage} y={MID_Y + 53} textAnchor="middle"
+            <text x={N1.triage} y={MID_Y + 320 + 53} textAnchor="middle"
               fontSize="10" fill={TEAL_DARK}>Painel Salesforce</text>
 
-            {/* ── Right vertical axis (teal) ── */}
-            <line x1={R_END} y1={MID_Y} x2={R_END + 55} y2={MID_Y}
+            {/* ── Right vertical axis (teal) — starts from Triagem new position ── */}
+            <line x1={N1.triage} y1={MID_Y + 320} x2={R_END + 55} y2={MID_Y + 320}
               stroke={TEAL} strokeWidth="6" />
-            <line x1={R_END + 55} y1={MID_Y} x2={R_END + 55} y2={SPLIT_Y}
+            <line x1={R_END + 55} y1={MID_Y + 320} x2={R_END + 55} y2={SPLIT_Y}
               stroke={TEAL} strokeWidth="6" />
             <line x1={R_END + 55} y1={SPLIT_Y} x2={R_END} y2={SPLIT_Y}
               stroke={TEAL} strokeWidth="6" />
