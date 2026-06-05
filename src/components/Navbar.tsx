@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useLang } from "@/lib/i18n";
+import ContactModal from "@/components/ContactModal";
 
 function FlagUK({ active }: { active: boolean }) {
   return (
@@ -66,9 +67,10 @@ function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
 }
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen,     setMenuOpen]     = useState(false);
   const [activeSection, setActiveSection] = useState("sobre");
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled,     setScrolled]     = useState(false);
+  const [contactOpen,  setContactOpen]  = useState(false);
   const { lang, switchLang, t } = useLang();
 
   useEffect(() => {
@@ -96,6 +98,7 @@ export default function Navbar() {
   }, [t.nav.links]);
 
   return (
+    <>
     <header
       className={[
         "sticky top-0 z-50 w-full bg-[#ECEEE8] transition-shadow duration-300",
@@ -155,13 +158,12 @@ export default function Navbar() {
             </button>
           </div>
 
-          <a
-            href="#contato"
-            onClick={(e) => handleNavClick(e, "#contato")}
-            className="hidden rounded-full border border-[#1F2937] px-6 py-1.5 text-sm font-normal text-[#1F2937] transition-all duration-200 hover:bg-[#FFBB1E] hover:border-[#FFBB1E] md:block"
+          <button
+            onClick={() => setContactOpen(true)}
+            className="hidden rounded-full border border-[#1F2937] px-6 py-1.5 text-sm font-normal text-[#1F2937] transition-all duration-200 hover:bg-[#FFBB1E] hover:border-[#FFBB1E] md:block cursor-pointer"
           >
             {t.nav.cta}
-          </a>
+          </button>
 
         </div>
       </div>
@@ -179,15 +181,17 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#contato"
-            onClick={(e) => { handleNavClick(e, "#contato"); setMenuOpen(false); }}
-            className="block py-3 text-base font-normal uppercase tracking-wide text-[#1F2937]"
+          <button
+            onClick={() => { setMenuOpen(false); setContactOpen(true); }}
+            className="block py-3 text-base font-normal uppercase tracking-wide text-[#1F2937] cursor-pointer"
           >
             {t.nav.cta}
-          </a>
+          </button>
         </nav>
       )}
     </header>
+
+    {contactOpen && <ContactModal onClose={() => setContactOpen(false)} />}
+    </>
   );
 }
