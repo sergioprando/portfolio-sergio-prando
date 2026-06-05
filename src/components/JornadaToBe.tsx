@@ -375,24 +375,16 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
                 { t: "registros para Time de Retenção." },
               ]} />
 
-            {/* ── Extração de Dados — moved to old Triagem X position ── */}
-            <INode cx={N1.triage} cy={MID_Y} c={TEAL} icon="computer" />
-            <text x={N1.triage} y={MID_Y + 41} textAnchor="middle"
-              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Extração</text>
-            <text x={N1.triage} y={MID_Y + 53} textAnchor="middle"
-              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">de Dados</text>
-
-
-            {/* ── Vertical connector: Extração → Triagem (320px down) ── */}
-            <line x1={N1.triage} y1={MID_Y + 28} x2={N1.triage} y2={MID_Y + 320 - 28}
+            {/* ── Vertical connector: MID_Y flow → Extração de Dados ── */}
+            <line x1={N1.triage} y1={MID_Y} x2={N1.triage} y2={MID_Y + 320 - 28}
               stroke={TEAL} strokeWidth="3" />
 
-            {/* ── Triagem — shifted 320px down ── */}
-            <INode cx={N1.triage} cy={MID_Y + 320} c={TEAL} icon="triagem" />
+            {/* ── Extração de Dados — at old Triagem position ── */}
+            <INode cx={N1.triage} cy={MID_Y + 320} c={TEAL} icon="computer" />
             <text x={N1.triage} y={MID_Y + 320 + 41} textAnchor="middle"
-              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Triagem</text>
+              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Extração</text>
             <text x={N1.triage} y={MID_Y + 320 + 53} textAnchor="middle"
-              fontSize="10" fill={TEAL_DARK}>Painel Salesforce</text>
+              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">de Dados</text>
 
             {/* ── Right vertical axis (teal) — starts from Triagem new position ── */}
             <line x1={N1.triage} y1={MID_Y + 320} x2={R_END + 55} y2={MID_Y + 320}
