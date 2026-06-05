@@ -303,8 +303,8 @@ function BradescoContent({ onClose }: { onClose: () => void }) {
         <div className="mt-14 pt-10 border-t border-black/10">
           <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">Resultado e Entrega de Valor</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            <div className="rounded-2xl overflow-hidden bg-[#D0D2CD]">
-              <img src="/bradesco-proto1.png" alt="Bradesco Retentômetro — Dashboard Final" className="w-full object-cover object-center" />
+            <div>
+              <RetentometroCarousel />
             </div>
             <div className="space-y-5">
               <p className="text-base leading-relaxed text-[#1F2937]">{bradesco.resultsIntro}</p>
@@ -337,6 +337,203 @@ function BradescoContent({ onClose }: { onClose: () => void }) {
 
       </div>
     </div>
+    </>
+  );
+}
+
+/* ── Retentômetro Salesforce carousel ── */
+const retentometroSlides = [
+  "/bradesco-proto1.png",
+  "/SalesForceRetentometro1.png",
+  "/SalesForceRetentometro2.png",
+  "/SalesForceRetentometro3.png",
+  "/SalesForceRetentometro4.png",
+  "/SalesForceRetentometro5.png",
+  "/SalesForceRetentometro6.png",
+  "/SalesForceRetentometro7.png",
+  "/SalesForceRetentometro8.png",
+];
+
+function RetentometroCarousel() {
+  const [index,    setIndex]    = useState(0);
+  const [dir,      setDir]      = useState(1);
+  const [lightbox, setLightbox] = useState(false);
+
+  const go = (next: number) => {
+    setDir(next > index ? 1 : -1);
+    setIndex(next);
+  };
+
+  const handleDragEnd = (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
+    const swipe = info.offset.x + info.velocity.x * 0.3;
+    if (swipe < -30 && index < retentometroSlides.length - 1) go(index + 1);
+    else if (swipe > 30 && index > 0) go(index - 1);
+  };
+
+  const slideVariants = {
+    enter:  (d: number) => ({ x: d * 80, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit:   (d: number) => ({ x: d * -80, opacity: 0 }),
+  };
+
+  const arrowClass =
+    "flex-shrink-0 w-9 h-9 rounded-full bg-[#1F2937]/60 hover:bg-[#1F2937]/90 " +
+    "flex items-center justify-center text-white transition-colors cursor-pointer";
+
+  const arrowClassLightbox =
+    "flex-shrink-0 w-11 h-11 rounded-full bg-white/20 hover:bg-white/40 " +
+    "flex items-center justify-center text-white transition-colors cursor-pointer";
+
+  return (
+    <>
+      {/* ── inline carousel ── */}
+      <div className="flex flex-col items-center gap-4">
+        <div className="flex items-center gap-3 w-full">
+          <div className="w-9 flex-shrink-0 flex justify-center">
+            {index > 0 && (
+              <button onClick={() => go(index - 1)} aria-label="Anterior" className={arrowClass}>
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6"/>
+                </svg>
+              </button>
+            )}
+          </div>
+
+          <div
+            className="relative flex-1 overflow-hidden rounded-2xl bg-[#D0D2CD] cursor-zoom-in"
+            style={{ aspectRatio: "16 / 9" }}
+            onClick={() => setLightbox(true)}
+          >
+            <AnimatePresence initial={false} custom={dir} mode="wait">
+              <motion.img
+                key={index}
+                src={retentometroSlides[index]}
+                alt={`Retentômetro Salesforce — tela ${index + 1}`}
+                custom={dir}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.28, ease: "easeInOut" }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                onDragEnd={handleDragEnd}
+                draggable={false}
+                className="absolute inset-0 w-full h-full object-cover select-none"
+              />
+            </AnimatePresence>
+          </div>
+
+          <div className="w-9 flex-shrink-0 flex justify-center">
+            {index < retentometroSlides.length - 1 && (
+              <button onClick={() => go(index + 1)} aria-label="Próxima" className={arrowClass}>
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6"/>
+                </svg>
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex gap-2">
+          {retentometroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => go(i)}
+              aria-label={`Slide ${i + 1}`}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                i === index ? "bg-[#1F2937]" : "bg-[#1F2937]/25"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* ── lightbox ── */}
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            className="fixed inset-0 z-[200] flex flex-col items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <div className="absolute inset-0 bg-black/80" onClick={() => setLightbox(false)} />
+
+            <button
+              onClick={() => setLightbox(false)}
+              aria-label="Fechar lightbox"
+              className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+
+            <div className="relative z-10 flex items-center gap-4 w-full max-w-[90vw] px-4">
+              <div className="w-11 flex-shrink-0 flex justify-center">
+                {index > 0 && (
+                  <button onClick={() => go(index - 1)} aria-label="Anterior imagem" className={arrowClassLightbox}>
+                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6"/>
+                    </svg>
+                  </button>
+                )}
+              </div>
+
+              <div
+                className="relative flex-1 overflow-hidden rounded-2xl bg-black"
+                style={{ aspectRatio: "16 / 9" }}
+              >
+                <AnimatePresence initial={false} custom={dir} mode="wait">
+                  <motion.img
+                    key={index}
+                    src={retentometroSlides[index]}
+                    alt={`Retentômetro Salesforce — tela ${index + 1}`}
+                    custom={dir}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.28, ease: "easeInOut" }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.15}
+                    onDragEnd={handleDragEnd}
+                    draggable={false}
+                    className="absolute inset-0 w-full h-full object-contain select-none"
+                  />
+                </AnimatePresence>
+              </div>
+
+              <div className="w-11 flex-shrink-0 flex justify-center">
+                {index < retentometroSlides.length - 1 && (
+                  <button onClick={() => go(index + 1)} aria-label="Próxima imagem" className={arrowClassLightbox}>
+                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6"/>
+                    </svg>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="relative z-10 flex gap-3 mt-5">
+              {retentometroSlides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => go(i)}
+                  aria-label={`Imagem ${i + 1}`}
+                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                    i === index ? "bg-white" : "bg-white/35"
+                  }`}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
