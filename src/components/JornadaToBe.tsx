@@ -186,7 +186,7 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
     negCh: 220,
     dia1: 370,
     sf: 560,
-    notif: 970,
+    notif: 757,
     extr: 760,
     triage: 1040,
   };
