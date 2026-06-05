@@ -303,17 +303,14 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             {/* ── Stem lines: card bottom → dot (vertical, straight) ── */}
             <line x1={N1.dia1}  y1={273} x2={N1.dia1}  y2={TOP_Y - 9} stroke={TEAL} strokeWidth="2" />
             <line x1={N1.sf}    y1={258} x2={N1.sf}    y2={TOP_Y - 9} stroke={TEAL} strokeWidth="2" />
-            <line x1={N1.extr}  y1={258} x2={N1.extr}  y2={TOP_Y - 9} stroke={TEAL} strokeWidth="2" />
             <line x1={N1.notif} y1={243} x2={N1.notif} y2={TOP_Y - 9} stroke={TEAL} strokeWidth="2" />
 
-            {/* ── Down connectors: extr and notif dots → MID_Y flow ── */}
-            <line x1={N1.extr}  y1={TOP_Y + 9} x2={N1.extr}  y2={MID_Y} stroke={TEAL} strokeWidth="2" />
+            {/* ── Down connector: notif dot → MID_Y flow ── */}
             <line x1={N1.notif} y1={TOP_Y + 9} x2={N1.notif} y2={MID_Y} stroke={TEAL} strokeWidth="2" />
 
-            {/* ── 4 dots on TOP_Y — one per card ── */}
+            {/* ── 3 dots on TOP_Y — one per card ── */}
             <Dot cx={N1.dia1}  cy={TOP_Y} />
             <Dot cx={N1.sf}    cy={TOP_Y} />
-            <Dot cx={N1.extr}  cy={TOP_Y} />
             <Dot cx={N1.notif} cy={TOP_Y} />
 
             {/* ── Card 1: Dia +1 ── */}
@@ -364,13 +361,6 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             <text x={N1.triage} y={MID_Y + 53} textAnchor="middle"
               fontSize="10.5" fill={TEAL_DARK} fontWeight="700">de Dados</text>
 
-            {/* ── Card 3: MDL ── */}
-            <TipBox x={N1.extr - 89} y={195} w={178} color={TEAL_BOX}
-              lines={[
-                { t: "Recebe a base de clientela MDL," },
-                { t: "sistema responsável com base" },
-                { t: "do Sales Force." },
-              ]} />
 
             {/* ── Vertical connector: Extração → Triagem (320px down) ── */}
             <line x1={N1.triage} y1={MID_Y + 28} x2={N1.triage} y2={MID_Y + 320 - 28}
