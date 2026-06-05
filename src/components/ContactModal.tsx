@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface Props {
   onClose: () => void;
@@ -33,15 +34,26 @@ export default function ContactModal({ onClose }: Props) {
   const [mensagem, setMensagem] = useState("");
   const [errors,   setErrors]   = useState<Errors>({});
   const [touched,  setTouched]  = useState<Record<string, boolean>>({});
-  const [success,  setSuccess]  = useState(false);
-  const [leaving,  setLeaving]  = useState(false);
-  const [sending,  setSending]  = useState(false);
+  const [success,   setSuccess]   = useState(false);
+  const [leaving,   setLeaving]   = useState(false);
+  const [sending,   setSending]   = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [visible,   setVisible]   = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = ""; };
   }, []);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const handleClose = () => {
+    setVisible(false);
+    setTimeout(onClose, 260);
+  };
 
   /* Remove error from a field as soon as the user fixes it */
   const clearError = (field: keyof Errors) => {
@@ -92,7 +104,7 @@ export default function ContactModal({ onClose }: Props) {
 
   const CloseBtn = () => (
     <button
-      onClick={onClose}
+      onClick={handleClose}
       aria-label="Fechar"
       className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/10 transition-colors cursor-pointer flex-shrink-0 ml-4"
     >
@@ -105,10 +117,21 @@ export default function ContactModal({ onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <motion.div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: visible ? 1 : 0 }}
+        transition={{ duration: 0.26, ease: "easeInOut" }}
+        onClick={handleClose}
+      />
 
       {/* Panel — form always dictates height; success overlays on top */}
-      <div className="relative w-full max-w-md bg-[#F7F8F5] rounded-2xl shadow-2xl p-8 overflow-hidden">
+      <motion.div
+        className="relative w-full max-w-md bg-[#F7F8F5] rounded-2xl shadow-2xl p-8 overflow-hidden"
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 18 }}
+        transition={{ duration: 0.26, ease: "easeInOut" }}
+      >
 
         {/* ── Success screen (absolute overlay, same padding) ── */}
         <div
@@ -119,7 +142,7 @@ export default function ContactModal({ onClose }: Props) {
             pointerEvents: success ? "auto" : "none",
           }}
         >
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4" onClick={handleClose}>
             <CloseBtn />
           </div>
           <h2 className="text-2xl font-semibold text-[#1F2937] mb-3">Email enviado com sucesso!</h2>
@@ -206,7 +229,7 @@ export default function ContactModal({ onClose }: Props) {
           </form>
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 }

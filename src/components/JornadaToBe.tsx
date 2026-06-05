@@ -1,4 +1,6 @@
 "use client";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 /* ─────────────────────────────────────────────────────────────────
    Jornada To Be — Retentômetro Bradesco
@@ -132,6 +134,12 @@ function Actor({ cx, cy, r = 46, c, src, label, label2 }: {
 
 /* ── Main component ─────────────────────────────────────────── */
 export default function JornadaToBe({ onClose }: { onClose: () => void }) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+  const handleClose = () => { setVisible(false); setTimeout(onClose, 260); };
 
   const W = 1200;
 
@@ -184,13 +192,18 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[70] bg-black/70 flex flex-col">
+    <motion.div
+      className="fixed inset-0 z-[70] bg-black/70 flex flex-col"
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 14 }}
+      transition={{ duration: 0.26, ease: "easeInOut" }}
+    >
 
       {/* Header */}
       <div className="flex-shrink-0 bg-[#F7F8F5] border-b border-black/10
                       px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <button onClick={onClose}
+          <button onClick={handleClose}
             className="flex items-center gap-2 text-sm text-[#1F2937]/60
                        hover:text-[#1F2937] transition-colors cursor-pointer">
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
@@ -204,7 +217,7 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             Jornada To Be — Processo de Retenção
           </p>
         </div>
-        <button onClick={onClose} aria-label="Fechar"
+        <button onClick={handleClose} aria-label="Fechar"
           className="w-8 h-8 rounded-full flex items-center justify-center
                      hover:bg-black/10 transition-colors cursor-pointer">
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24">
@@ -573,6 +586,6 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
           </svg>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
