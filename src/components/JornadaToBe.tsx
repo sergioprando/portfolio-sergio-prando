@@ -146,12 +146,6 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
   const MERGE_X = 740;
   const R_END  = 1110;
 
-  // Tooltip bottom-align
-  const TIP_BOT = TOP_Y - 15;
-  const dia1H   = 3 * 15 + 18; // 63px
-  const sfH     = 2 * 15 + 18; // 48px
-  const notifH  = 2 * 15 + 18; // 48px
-
   // Triagem sub-items Y
   const TR_Y = [420, 510];
 
