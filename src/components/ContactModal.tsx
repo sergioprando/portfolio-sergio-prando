@@ -35,6 +35,8 @@ export default function ContactModal({ onClose }: Props) {
   const [touched,  setTouched]  = useState<Record<string, boolean>>({});
   const [success,  setSuccess]  = useState(false);
   const [leaving,  setLeaving]  = useState(false);
+  const [sending,  setSending]  = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -46,7 +48,7 @@ export default function ContactModal({ onClose }: Props) {
     if (errors[field]) setErrors((prev) => { const n = { ...prev }; delete n[field]; return n; });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const erros = validate(nome, email, mensagem);
     if (Object.keys(erros).length > 0) {
@@ -54,12 +56,29 @@ export default function ContactModal({ onClose }: Props) {
       setTouched({ nome: true, email: true, mensagem: true });
       return;
     }
-    const subject = encodeURIComponent(`Contato via portfólio — ${nome}`);
-    const body    = encodeURIComponent(`Nome: ${nome}\nEmail: ${email}\n\n${mensagem}`);
-    window.location.href = `mailto:sergio.prando@gmail.com?subject=${subject}&body=${body}`;
-    /* transition to success */
-    setLeaving(true);
-    setTimeout(() => { setLeaving(false); setSuccess(true); }, 300);
+
+    setSending(true);
+    setSendError(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, mensagem }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? "Erro ao enviar.");
+      }
+
+      setLeaving(true);
+      setTimeout(() => { setLeaving(false); setSuccess(true); }, 300);
+    } catch (err) {
+      setSendError(err instanceof Error ? err.message : "Erro ao enviar. Tente novamente.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const inputBase =
@@ -142,6 +161,11 @@ export default function ContactModal({ onClose }: Props) {
               {errors.mensagem && <p className="text-sm text-red-600">{errors.mensagem}</p>}
             </div>
           )}
+          {sendError && (
+            <div className="mb-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3">
+              <p className="text-sm text-red-600">{sendError}</p>
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} noValidate className="space-y-4">
@@ -174,9 +198,10 @@ export default function ContactModal({ onClose }: Props) {
             />
             <button
               type="submit"
-              className="w-full rounded-full bg-[#1F2937] text-white text-sm font-medium py-3 hover:bg-[#FFBB1E] hover:text-[#1F2937] transition-colors duration-200 cursor-pointer"
+              disabled={sending}
+              className="w-full rounded-full bg-[#1F2937] text-white text-sm font-medium py-3 hover:bg-[#FFBB1E] hover:text-[#1F2937] transition-colors duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Enviar mensagem
+              {sending ? "Enviando…" : "Enviar mensagem"}
             </button>
           </form>
         </div>

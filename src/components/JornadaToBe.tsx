@@ -182,10 +182,10 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
     actor: ACT_CX,
     othersCh: 220,
     negCh: 220,
-    dia1: 380,
-    sf: 580,
-    notif: 810,
-    extr: 730,
+    dia1: 370,
+    sf: 560,
+    notif: 970,
+    extr: 760,
     triage: 1040,
   };
 
@@ -295,7 +295,7 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
 
             {/* ── Dia +1 (top lane) ── */}
             <Dot cx={N1.dia1} cy={TOP_Y} />
-            <TipBox x={N1.dia1 - 78} y={TIP_BOT - dia1H} w={158} color={TEAL_BOX}
+            <TipBox x={N1.dia1 - 79} y={195} w={158} color={TEAL_BOX}
               lines={[
                 { t: "Dia + 1", bold: true },
                 { t: "Outros canais podem entrar" },
@@ -305,16 +305,16 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
 
             {/* ── Salesforce (top lane) ── */}
             <Dot cx={N1.sf} cy={TOP_Y} />
-            <TipBox x={N1.sf - 80} y={TIP_BOT - sfH - 48} w={162} color={TEAL_BOX}
+            <TipBox x={N1.sf - 81} y={195} w={162} color={TEAL_BOX}
               lines={[
                 { t: "Cadastro do Cliente na", bold: true },
                 { t: "Salesforce para gerar a" },
                 { t: "elaboração do Dossiê." },
               ]} />
 
-            {/* ── Notificação (top lane) ── */}
-            <Dot cx={N1.notif} cy={TOP_Y} />
-            <TipBox x={N1.notif - 85} y={TIP_BOT - notifH} w={172} color={TEAL_BOX}
+            {/* ── Notificação (merged line) ── */}
+            <Dot cx={N1.notif} cy={MID_Y} />
+            <TipBox x={N1.notif - 86} y={195} w={172} color={TEAL_BOX}
               lines={[
                 { t: "Envio de Notificação de novos", bold: true },
                 { t: "registros para Time de Retenção." },
@@ -344,16 +344,11 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             <text x={N1.extr} y={MID_Y + 53} textAnchor="middle"
               fontSize="10.5" fill={TEAL_DARK} fontWeight="700">de Dados</text>
 
-            <TipBox x={N1.extr - 88} y={MID_Y - 108} w={178} color={TEAL_BOX}
+            <TipBox x={N1.extr - 89} y={195} w={178} color={TEAL_BOX}
               lines={[
                 { t: "Recebe a base de clientela MDL," },
                 { t: "sistema responsável com base" },
                 { t: "do Sales Force." },
-              ]} />
-            <TipBox x={N1.extr - 88} y={MID_Y + 58} w={178} color={TEAL_BOX}
-              lines={[
-                { t: "Envio de Notificação de novos" },
-                { t: "registros para Time de Retenção." },
               ]} />
 
             {/* ── Triagem ── */}
