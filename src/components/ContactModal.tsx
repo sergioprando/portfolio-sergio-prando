@@ -88,51 +88,38 @@ export default function ContactModal({ onClose }: Props) {
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Panel */}
+      {/* Panel — form always dictates height; success overlays on top */}
       <div className="relative w-full max-w-md bg-[#F7F8F5] rounded-2xl shadow-2xl p-8 overflow-hidden">
 
-        {/* ── Success screen ── */}
+        {/* ── Success screen (absolute overlay, same padding) ── */}
         <div
-          className="transition-all duration-300 ease-in-out"
+          className="absolute inset-0 p-8 flex flex-col items-center justify-center text-center transition-all duration-300 ease-in-out rounded-2xl bg-[#F7F8F5]"
           style={{
             opacity: success ? 1 : 0,
-            transform: success ? "translateY(0)" : "translateY(20px)",
+            transform: success ? "translateY(0)" : "translateY(16px)",
             pointerEvents: success ? "auto" : "none",
-            position: success ? "relative" : "absolute",
-            inset: success ? "auto" : 0,
           }}
         >
-          {success && (
-            <div className="flex flex-col items-center text-center py-4">
-              <div className="flex items-start justify-end w-full mb-2">
-                <CloseBtn />
-              </div>
-              {/* Check icon 132x132 */}
-              <svg width="132" height="132" viewBox="0 0 132 132" fill="none" className="mb-6">
-                <circle cx="66" cy="66" r="66" fill="#DCFCE7"/>
-                <circle cx="66" cy="66" r="52" fill="#BBF7D0"/>
-                <path
-                  d="M42 66l16 16 32-32"
-                  stroke="#16A34A"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <h2 className="text-2xl font-semibold text-[#1F2937] mb-3">Email enviado com sucesso!</h2>
-              <p className="text-sm text-[#1F2937]/60 leading-relaxed">
-                Sua mensagem foi enviada com sucesso, logo vamos conversar sobre como podemos trabalhar juntos.
-              </p>
-            </div>
-          )}
+          <div className="absolute top-4 right-4">
+            <CloseBtn />
+          </div>
+          <h2 className="text-2xl font-semibold text-[#1F2937] mb-3">Email enviado com sucesso!</h2>
+          <p className="text-sm text-[#1F2937]/60 leading-relaxed mb-6">
+            Sua mensagem foi enviada com sucesso, logo vamos conversar sobre como podemos trabalhar juntos.
+          </p>
+          <svg width="132" height="132" viewBox="0 0 132 132" fill="none" className="flex-shrink-0">
+            <circle cx="66" cy="66" r="66" fill="#DCFCE7"/>
+            <circle cx="66" cy="66" r="52" fill="#BBF7D0"/>
+            <path d="M42 66l16 16 32-32" stroke="#16A34A" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </div>
 
-        {/* ── Form screen ── */}
+        {/* ── Form screen (always rendered to keep modal height) ── */}
         <div
           className="transition-all duration-300 ease-in-out"
           style={{
             opacity: leaving || success ? 0 : 1,
-            transform: leaving || success ? "translateY(-20px)" : "translateY(0)",
+            transform: leaving || success ? "translateY(-16px)" : "translateY(0)",
             pointerEvents: success ? "none" : "auto",
           }}
         >
