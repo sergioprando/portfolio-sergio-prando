@@ -264,8 +264,8 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             {/* Top lane line — extended all the way to Triagem at R_END+55 */}
             <line x1="152" y1={TOP_Y} x2={R_END + 55} y2={TOP_Y}
               stroke={TEAL} strokeWidth="3" />
-            {/* Bottom lane line — extended to BOT_MERGE_X */}
-            <line x1="152" y1={BOT_Y} x2={BOT_MERGE_X} y2={BOT_Y}
+            {/* Bottom lane line — extended to Triagem vertical axis */}
+            <line x1="152" y1={BOT_Y} x2={R_END + 55} y2={BOT_Y}
               stroke={TEAL} strokeWidth="3" />
             {/* Actor vertical connector */}
             <line x1={N1.actor} y1={TOP_Y} x2={N1.actor} y2={BOT_Y}
@@ -274,13 +274,7 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
               stroke={TEAL} strokeWidth="3" />
             <line x1={N1.actor} y1={BOT_Y} x2="152" y2={BOT_Y}
               stroke={TEAL} strokeWidth="3" />
-            {/* Merge */}
-            <line x1={MERGE_X} y1={TOP_Y} x2={MERGE_X} y2={MID_Y}
-              stroke={TEAL} strokeWidth="3" />
-            <line x1={BOT_MERGE_X} y1={BOT_Y} x2={BOT_MERGE_X} y2={MID_Y}
-              stroke={TEAL} strokeWidth="3" />
-            <line x1={MERGE_X} y1={MID_Y} x2={N1.triage} y2={MID_Y}
-              stroke={TEAL} strokeWidth="3" />
+            {/* Both lanes extend straight to Triagem vertical axis — no mid merges */}
 
             {/* ── Actor vertical connector → top of journey ── */}
             <line x1={N1.actor} y1={ACT_CY + 70} x2={N1.actor} y2={TOP_Y}
@@ -306,8 +300,6 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             <line x1={N1.sf}    y1={258} x2={N1.sf}    y2={TOP_Y - 9} stroke={TEAL} strokeWidth="2" />
             <line x1={N1.notif} y1={243} x2={N1.notif} y2={TOP_Y - 9} stroke={TEAL} strokeWidth="2" />
 
-            {/* ── Down connector: notif dot → MID_Y flow ── */}
-            <line x1={N1.notif} y1={TOP_Y + 9} x2={N1.notif} y2={MID_Y} stroke={TEAL} strokeWidth="2" />
 
             {/* ── 3 dots on TOP_Y — one per card ── */}
             <Dot cx={N1.dia1}  cy={TOP_Y} />
@@ -375,9 +367,6 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
                 { t: "registros para Time de Retenção." },
               ]} />
 
-            {/* ── Vertical connector: MID_Y flow → right axis junction ── */}
-            <line x1={N1.triage} y1={MID_Y} x2={N1.triage} y2={MID_Y + 320}
-              stroke={TEAL} strokeWidth="3" />
 
             {/* ── Triagem — at top-right corner where TOP_Y meets right axis ── */}
             <INode cx={R_END + 55} cy={TOP_Y} c={TEAL} icon="triagem" />
