@@ -151,8 +151,9 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
   const TOP_Y  = 290;
   const BOT_Y  = 400;
   const MID_Y  = 345;
-  const MERGE_X = 757; // aligned with 3rd card node (N1.notif)
-  const R_END  = 1110;
+  const MERGE_X     = 757;  // aligned with 3rd card node (N1.notif) — TOP_Y merge
+  const BOT_MERGE_X = 960;  // bottom lane merges further right
+  const R_END       = 1110;
 
   // Triagem sub-items Y (shifted +320 from original)
   const TR_Y = [740, 830];
@@ -263,8 +264,8 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             {/* Top lane line — extended to cover all 4 card nodes */}
             <line x1="152" y1={TOP_Y} x2={N1.notif + 10} y2={TOP_Y}
               stroke={TEAL} strokeWidth="3" />
-            {/* Bottom lane line */}
-            <line x1="152" y1={BOT_Y} x2={MERGE_X} y2={BOT_Y}
+            {/* Bottom lane line — extended to BOT_MERGE_X */}
+            <line x1="152" y1={BOT_Y} x2={BOT_MERGE_X} y2={BOT_Y}
               stroke={TEAL} strokeWidth="3" />
             {/* Actor vertical connector */}
             <line x1={N1.actor} y1={TOP_Y} x2={N1.actor} y2={BOT_Y}
@@ -276,7 +277,7 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             {/* Merge */}
             <line x1={MERGE_X} y1={TOP_Y} x2={MERGE_X} y2={MID_Y}
               stroke={TEAL} strokeWidth="3" />
-            <line x1={MERGE_X} y1={BOT_Y} x2={MERGE_X} y2={MID_Y}
+            <line x1={BOT_MERGE_X} y1={BOT_Y} x2={BOT_MERGE_X} y2={MID_Y}
               stroke={TEAL} strokeWidth="3" />
             <line x1={MERGE_X} y1={MID_Y} x2={N1.triage} y2={MID_Y}
               stroke={TEAL} strokeWidth="3" />
@@ -337,21 +338,41 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
                 { t: "registros para Time de Retenção." },
               ]} />
 
-            {/* ── Phone: Pedido de Negociação (bottom lane) ── */}
-            <INode cx={N1.negCh} cy={BOT_Y} c={TEAL} icon="phone" />
-            <text x={N1.negCh} y={BOT_Y + 41} textAnchor="middle"
-              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Pedido de</text>
-            <text x={N1.negCh} y={BOT_Y + 53} textAnchor="middle"
-              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Negociação</text>
-
-            {/* ── Dot (bottom lane) ── */}
-            <Dot cx={460} cy={BOT_Y} />
-            <TipBox x={460 - 80} y={BOT_Y + 18} w={162} color={TEAL_BOX}
+            {/* ── Bottom lane: Card 1 ── */}
+            <Dot cx={330} cy={BOT_Y} />
+            <TipBox x={248} y={BOT_Y + 18} w={165} color={TEAL_BOX}
               lines={[
-                { t: "O Gerente de Atendimento ou", bold: true },
-                { t: "analista usa 3 registros: perfil" },
-                { t: "de negociação, performance," },
-                { t: "rentabilidade do plano e saúde." },
+                { t: "D = 0 Central de Atendimento", bold: true },
+                { t: "via sistema. De forma on-time" },
+                { t: "registra o pedido de negociação" },
+                { t: "ou carta de permanência e ou" },
+                { t: "portabilidade, do plano" },
+                { t: "e motivo." },
+              ]} />
+
+            {/* ── Bottom lane: Extração de Dados icon ── */}
+            <INode cx={490} cy={BOT_Y} c={TEAL} icon="computer" />
+            <text x={490} y={BOT_Y + 41} textAnchor="middle"
+              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Extração</text>
+            <text x={490} y={BOT_Y + 53} textAnchor="middle"
+              fontSize="10.5" fill={TEAL_DARK} fontWeight="700">de Dados</text>
+
+            {/* ── Bottom lane: Card 2 ── */}
+            <Dot cx={640} cy={BOT_Y} />
+            <TipBox x={560} y={BOT_Y + 18} w={160} color={TEAL_BOX}
+              lines={[
+                { t: "Recebe on-time a base de" },
+                { t: "diretório SPG, o sistema" },
+                { t: "encaminha para a base" },
+                { t: "do Sales Force." },
+              ]} />
+
+            {/* ── Bottom lane: Card 3 ── */}
+            <Dot cx={820} cy={BOT_Y} />
+            <TipBox x={733} y={BOT_Y + 18} w={175} color={TEAL_BOX}
+              lines={[
+                { t: "Envio de Notificação de novos", bold: true },
+                { t: "registros para Time de Retenção." },
               ]} />
 
             {/* ── Extração de Dados — moved to old Triagem X position ── */}
