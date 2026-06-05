@@ -261,8 +261,8 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
                 ROW 1 — Left to Right (teal)
             ══════════════════════════════════════════════════ */}
 
-            {/* Top lane line — extended to cover all 4 card nodes */}
-            <line x1="152" y1={TOP_Y} x2={N1.notif + 10} y2={TOP_Y}
+            {/* Top lane line — extended all the way to Triagem at R_END+55 */}
+            <line x1="152" y1={TOP_Y} x2={R_END + 55} y2={TOP_Y}
               stroke={TEAL} strokeWidth="3" />
             {/* Bottom lane line — extended to BOT_MERGE_X */}
             <line x1="152" y1={BOT_Y} x2={BOT_MERGE_X} y2={BOT_Y}
@@ -379,20 +379,16 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
             <line x1={N1.triage} y1={MID_Y} x2={N1.triage} y2={MID_Y + 320}
               stroke={TEAL} strokeWidth="3" />
 
-            {/* ── Right vertical axis (teal) ── */}
-            <line x1={N1.triage} y1={MID_Y + 320} x2={R_END + 55} y2={MID_Y + 320}
-              stroke={TEAL} strokeWidth="6" />
-            <line x1={R_END + 55} y1={MID_Y + 320} x2={R_END + 55} y2={SPLIT_Y}
-              stroke={TEAL} strokeWidth="6" />
-            <line x1={R_END + 55} y1={SPLIT_Y} x2={R_END} y2={SPLIT_Y}
-              stroke={TEAL} strokeWidth="6" />
-
-            {/* ── Triagem — at last 90° corner (R_END, SPLIT_Y) ── */}
-            <INode cx={R_END} cy={SPLIT_Y} c={TEAL} icon="triagem" />
-            <text x={R_END} y={SPLIT_Y - 35} textAnchor="middle"
-              fontSize="10" fill={TEAL_DARK}>Painel Salesforce</text>
-            <text x={R_END} y={SPLIT_Y - 22} textAnchor="middle"
+            {/* ── Triagem — at top-right corner where TOP_Y meets right axis ── */}
+            <INode cx={R_END + 55} cy={TOP_Y} c={TEAL} icon="triagem" />
+            <text x={R_END + 55} y={TOP_Y + 41} textAnchor="middle"
               fontSize="10.5" fill={TEAL_DARK} fontWeight="700">Triagem</text>
+            <text x={R_END + 55} y={TOP_Y + 53} textAnchor="middle"
+              fontSize="10" fill={TEAL_DARK}>Painel Salesforce</text>
+
+            {/* ── Right vertical axis — descends from Triagem to SPLIT_Y ── */}
+            <line x1={R_END + 55} y1={TOP_Y + 28} x2={R_END + 55} y2={SPLIT_Y}
+              stroke={TEAL} strokeWidth="6" />
 
             {/* ── Triagem sub-items ── */}
             {[
