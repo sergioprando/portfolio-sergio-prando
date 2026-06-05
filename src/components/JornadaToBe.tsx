@@ -151,7 +151,7 @@ export default function JornadaToBe({ onClose }: { onClose: () => void }) {
   const TOP_Y  = 290;
   const BOT_Y  = 400;
   const MID_Y  = 345;
-  const MERGE_X = 740;
+  const MERGE_X = 757; // aligned with 3rd card node (N1.notif)
   const R_END  = 1110;
 
   // Triagem sub-items Y (shifted +320 from original)
