@@ -77,7 +77,7 @@ function PasswordModal({
         {error && (
           <div className="mb-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3">
             <p className="text-sm text-red-600">
-              A senha está incorreta, se tiver dificuldade para acessar entre em contato comigo que eu resolvemos isto juntos.
+              A senha está incorreta, se tiver dificuldade para acessar entre em contato comigo que resolvemos isto juntos.
             </p>
           </div>
         )}
