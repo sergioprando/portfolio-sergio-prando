@@ -22,9 +22,10 @@ export interface CardRect { top: number; left: number; width: number; height: nu
 function PasswordModal({
   onConfirm, onClose,
 }: { onConfirm: () => void; onClose: () => void }) {
-  const [value,   setValue]   = useState("");
-  const [error,   setError]   = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [value,       setValue]       = useState("");
+  const [error,       setError]       = useState(false);
+  const [visible,     setVisible]     = useState(false);
+  const [showPass,    setShowPass]    = useState(false);
 
   useEffect(() => {
     const id = requestAnimationFrame(() => setVisible(true));
@@ -83,14 +84,37 @@ function PasswordModal({
         )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="password"
-            placeholder="Informe a senha"
-            value={value}
-            onChange={(e) => { setValue(e.target.value); setError(false); }}
-            className="w-full rounded-xl border border-black/20 bg-white px-4 py-3 text-sm text-[#1F2937] placeholder:text-[#1F2937]/40 outline-none focus:border-[#1F2937] transition-colors"
-            autoFocus
-          />
+          <div className="relative">
+            <input
+              type={showPass ? "text" : "password"}
+              placeholder="Informe a senha"
+              value={value}
+              onChange={(e) => { setValue(e.target.value); setError(false); }}
+              className="w-full rounded-xl border border-black/20 bg-white px-4 py-3 pr-11 text-sm text-[#1F2937] placeholder:text-[#1F2937]/40 outline-none focus:border-[#1F2937] transition-colors"
+              autoFocus
+            />
+            <button
+              type="button"
+              onClick={() => setShowPass((p) => !p)}
+              aria-label={showPass ? "Ocultar senha" : "Mostrar senha"}
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-[#1F2937]/40 hover:text-[#1F2937] transition-colors cursor-pointer"
+            >
+              {showPass ? (
+                /* Olho aberto */
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              ) : (
+                /* Olho fechado com corte */
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    d="M17.94 17.94A10.07 10.07 0 0112 20c-6.5 0-10-8-10-8a17.6 17.6 0 014.72-5.5M9.9 4.24A9.12 9.12 0 0112 4c6.5 0 10 8 10 8a17.6 17.6 0 01-2.06 3.1M14.12 14.12A3 3 0 019.88 9.88M3 3l18 18"/>
+                </svg>
+              )}
+            </button>
+          </div>
           <button
             type="submit"
             className="w-full rounded-full bg-[#1F2937] text-white text-sm font-medium py-3 hover:bg-[#FFBB1E] hover:text-[#1F2937] transition-colors duration-200 cursor-pointer"
