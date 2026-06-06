@@ -343,7 +343,6 @@ function BradescoContent({ onClose }: { onClose: () => void }) {
 
 /* ── Retentômetro Salesforce carousel ── */
 const retentometroSlides = [
-  "/bradesco-proto1.png",
   "/SalesForceRetentometro1.png",
   "/SalesForceRetentometro2.png",
   "/SalesForceRetentometro3.png",
