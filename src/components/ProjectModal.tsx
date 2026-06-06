@@ -595,7 +595,6 @@ function SaudeCarousel() {
   const [index,    setIndex]    = useState(0);
   const [dir,      setDir]      = useState(1);
   const [lightbox, setLightbox] = useState(false);
-  const isPortraitMobile = usePortraitMobile();
 
   const go = (next: number) => {
     setDir(next > index ? 1 : -1);
@@ -725,7 +724,6 @@ function SaudeCarousel() {
                 className="relative overflow-hidden rounded-2xl bg-black"
                 style={{ height: "85vh", aspectRatio: "780 / 1739" }}
               >
-                {isPortraitMobile && <RotateHint />}
 
                 <AnimatePresence initial={false} custom={dir} mode="wait">
                   <motion.img
@@ -942,7 +940,6 @@ function TecExpressCarousel() {
   const [index,    setIndex]    = useState(0);
   const [dir,      setDir]      = useState(1);
   const [lightbox, setLightbox] = useState(false);
-  const isPortraitMobile = usePortraitMobile();
 
   const go = (next: number) => {
     setDir(next > index ? 1 : -1);
@@ -1072,7 +1069,6 @@ function TecExpressCarousel() {
                 className="relative overflow-hidden rounded-2xl bg-black"
                 style={{ height: "85vh", aspectRatio: "427 / 950" }}
               >
-                {isPortraitMobile && <RotateHint />}
                 <AnimatePresence initial={false} custom={dir} mode="wait">
                   <motion.img
                     key={index}
