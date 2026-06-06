@@ -15,6 +15,47 @@ interface Props {
   onClose: () => void;
 }
 
+/* ── Detecta mobile em portrait ── */
+function usePortraitMobile() {
+  const check = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(orientation: portrait)").matches &&
+    window.innerWidth < 768;
+
+  const [isPortraitMobile, setIsPortraitMobile] = useState(check);
+
+  useEffect(() => {
+    const update = () => setIsPortraitMobile(check());
+    const mq = window.matchMedia("(orientation: portrait)");
+    mq.addEventListener("change", update);
+    window.addEventListener("resize", update);
+    return () => {
+      mq.removeEventListener("change", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return isPortraitMobile;
+}
+
+/* ── Overlay de rotação exibido dentro do lightbox ── */
+function RotateHint() {
+  return (
+    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-black/80 rounded-2xl pointer-events-none">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" className="animate-bounce">
+        <rect x="5" y="2" width="14" height="20" rx="2" stroke="white" strokeWidth="1.8"/>
+        <path stroke="#FFBB1E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" d="M17 8l3 3-3 3"/>
+        <path stroke="#FFBB1E" strokeWidth="1.8" strokeLinecap="round" d="M20 11H9"/>
+      </svg>
+      <p className="text-white text-sm font-semibold text-center px-8 leading-relaxed">
+        Vire o seu celular na horizontal
+        <br/>
+        <span className="text-white/50 text-xs font-normal">para uma melhor visualização</span>
+      </p>
+    </div>
+  );
+}
+
 /* ── Bradesco content data ── */
 const bradescoPainPoints = [
   "7 dias de espera para uma simples aprovação de apólice — tempo suficiente para o cliente desistir",
@@ -357,6 +398,7 @@ function RetentometroCarousel() {
   const [index,    setIndex]    = useState(0);
   const [dir,      setDir]      = useState(1);
   const [lightbox, setLightbox] = useState(false);
+  const isPortraitMobile = usePortraitMobile();
 
   const go = (next: number) => {
     setDir(next > index ? 1 : -1);
@@ -486,6 +528,7 @@ function RetentometroCarousel() {
                 className="relative flex-1 overflow-hidden rounded-2xl bg-black"
                 style={{ aspectRatio: "16 / 9" }}
               >
+                {isPortraitMobile && <RotateHint />}
                 <AnimatePresence initial={false} custom={dir} mode="wait">
                   <motion.img
                     key={index}
@@ -552,6 +595,7 @@ function SaudeCarousel() {
   const [index,    setIndex]    = useState(0);
   const [dir,      setDir]      = useState(1);
   const [lightbox, setLightbox] = useState(false);
+  const isPortraitMobile = usePortraitMobile();
 
   const go = (next: number) => {
     setDir(next > index ? 1 : -1);
@@ -681,6 +725,7 @@ function SaudeCarousel() {
                 className="relative overflow-hidden rounded-2xl bg-black"
                 style={{ height: "85vh", aspectRatio: "780 / 1739" }}
               >
+                {isPortraitMobile && <RotateHint />}
                 <AnimatePresence initial={false} custom={dir} mode="wait">
                   <motion.img
                     key={index}
@@ -896,6 +941,7 @@ function TecExpressCarousel() {
   const [index,    setIndex]    = useState(0);
   const [dir,      setDir]      = useState(1);
   const [lightbox, setLightbox] = useState(false);
+  const isPortraitMobile = usePortraitMobile();
 
   const go = (next: number) => {
     setDir(next > index ? 1 : -1);
@@ -1025,6 +1071,7 @@ function TecExpressCarousel() {
                 className="relative overflow-hidden rounded-2xl bg-black"
                 style={{ height: "85vh", aspectRatio: "427 / 950" }}
               >
+                {isPortraitMobile && <RotateHint />}
                 <AnimatePresence initial={false} custom={dir} mode="wait">
                   <motion.img
                     key={index}
@@ -1233,6 +1280,7 @@ function VtalConectaCarousel() {
   const [index,     setIndex]     = useState(0);
   const [dir,       setDir]       = useState(1);
   const [lightbox,  setLightbox]  = useState(false);
+  const isPortraitMobile = usePortraitMobile();
 
   const go = (next: number) => {
     setDir(next > index ? 1 : -1);
@@ -1368,6 +1416,7 @@ function VtalConectaCarousel() {
                 className="relative flex-1 overflow-hidden rounded-2xl bg-black"
                 style={{ aspectRatio: "1370 / 768" }}
               >
+                {isPortraitMobile && <RotateHint />}
                 <AnimatePresence initial={false} custom={dir} mode="wait">
                   <motion.img
                     key={index}
