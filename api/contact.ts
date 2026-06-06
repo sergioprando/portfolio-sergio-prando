@@ -25,8 +25,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     return res.status(200).json({ ok: true });
-  } catch (err) {
-    console.error("[contact] erro ao enviar:", err);
-    return res.status(500).json({ error: "Falha ao enviar o email." });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[contact] erro ao enviar:", message);
+    return res.status(500).json({ error: `Falha ao enviar: ${message}` });
   }
 }
