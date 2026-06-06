@@ -59,7 +59,7 @@ const translations: Record<Lang, Translations> = {
       stats: [
         { value: "10+", label: "Anos de\nExperiência" },
         { value: "20+", label: "Projetos\nEnterprise" },
-        { highlight: "Eficiência e\nImpacto real", items: ["+35% de Arrecadação", "-30% de Custo de Operação"] },
+        { highlight: "+35% de Arrecadação\n-30% de Custo de Operação", items: ["Eficiência e Impacto real"] },
       ],
       companiesTitle: "Empresas que eu trabalhei",
       companies: [
@@ -110,7 +110,7 @@ const translations: Record<Lang, Translations> = {
       stats: [
         { value: "10+", label: "Years of\nExperience" },
         { value: "20+", label: "Enterprise\nProjects" },
-        { highlight: "Efficiency &\nReal Impact", items: ["+35% Revenue Growth", "-30% Operating Cost"] },
+        { highlight: "+35% Revenue Growth\n-30% Operating Cost", items: ["Efficiency & Real Impact"] },
       ],
       companiesTitle: "Companies I've worked with",
       companies: [
