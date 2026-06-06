@@ -6,6 +6,9 @@ import { useLang } from "@/lib/i18n";
 import { useReveal } from "@/lib/useReveal";
 import ProjectModal from "@/components/ProjectModal";
 
+// Senha de acesso aos cases — CaseDesign@2026
+const CASE_PASSWORD = "CaseDesign@2026";
+
 const projects = [
   { id: 2, thumb: "/thumb-2-vtal-express.png",          tooltip: "V.tal Técnico Express" },
   { id: 7, thumb: "/thumb-3-agente-nio.png",            tooltip: "AI Agent NIO" },
@@ -15,20 +18,124 @@ const projects = [
 
 export interface CardRect { top: number; left: number; width: number; height: number; }
 
+/* ── Password Modal ─────────────────────────────────────── */
+function PasswordModal({
+  onConfirm, onClose,
+}: { onConfirm: () => void; onClose: () => void }) {
+  const [value,   setValue]   = useState("");
+  const [error,   setError]   = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setVisible(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  const handleClose = () => { setVisible(false); setTimeout(onClose, 260); };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (value === CASE_PASSWORD) {
+      setVisible(false);
+      setTimeout(onConfirm, 260);
+    } else {
+      setError(true);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <motion.div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: visible ? 1 : 0 }}
+        transition={{ duration: 0.26, ease: "easeInOut" }}
+        onClick={handleClose}
+      />
+      <motion.div
+        className="relative w-full max-w-sm bg-[#F7F8F5] rounded-2xl shadow-2xl p-8"
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 18 }}
+        transition={{ duration: 0.26, ease: "easeInOut" }}
+      >
+        {/* Close */}
+        <button
+          onClick={handleClose}
+          aria-label="Fechar"
+          className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center hover:bg-black/10 transition-colors cursor-pointer"
+        >
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+            <path stroke="#1F2937" strokeWidth="2.2" strokeLinecap="round" d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+
+        <h2 className="text-xl font-bold text-[#1F2937] mb-2">Senha de Acesso</h2>
+        <p className="text-sm text-[#1F2937]/70 mb-6 leading-relaxed">
+          Para garantir a segurança e privacidade do cliente é necessário o acesso ao case mediante a apresentação de senha.
+        </p>
+
+        {error && (
+          <div className="mb-4 rounded-xl bg-red-50 border border-red-200 px-4 py-3">
+            <p className="text-sm text-red-600">
+              A senha está incorreta, se tiver dificuldade para acessar entre em contato comigo que eu resolvemos isto juntos.
+            </p>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <input
+            type="password"
+            placeholder="Informe a senha"
+            value={value}
+            onChange={(e) => { setValue(e.target.value); setError(false); }}
+            className="w-full rounded-xl border border-black/20 bg-white px-4 py-3 text-sm text-[#1F2937] placeholder:text-[#1F2937]/40 outline-none focus:border-[#1F2937] transition-colors"
+            autoFocus
+          />
+          <button
+            type="submit"
+            className="w-full rounded-full bg-[#1F2937] text-white text-sm font-medium py-3 hover:bg-[#FFBB1E] hover:text-[#1F2937] transition-colors duration-200 cursor-pointer"
+          >
+            Acessar
+          </button>
+        </form>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function Work() {
   const { t } = useLang();
   const sectionRef = useRef<HTMLElement>(null);
   const visible    = useReveal(sectionRef);
 
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-  const [flippingId, setFlippingId] = useState<number | null>(null);
-  const [cardRect,   setCardRect]   = useState<CardRect | null>(null);
+  const [selectedId,    setSelectedId]    = useState<number | null>(null);
+  const [flippingId,    setFlippingId]    = useState<number | null>(null);
+  const [cardRect,      setCardRect]      = useState<CardRect | null>(null);
+  const [pendingId,     setPendingId]     = useState<number | null>(null);
+  const [pendingRect,   setPendingRect]   = useState<CardRect | null>(null);
+  const [showPassword,  setShowPassword]  = useState(false);
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>, id: number) => {
-    if (flippingId !== null || selectedId !== null) return;
+    if (flippingId !== null || selectedId !== null || showPassword) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    setCardRect({ top: rect.top, left: rect.left, width: rect.width, height: rect.height });
-    setFlippingId(id);
+    setPendingId(id);
+    setPendingRect({ top: rect.top, left: rect.left, width: rect.width, height: rect.height });
+    setShowPassword(true);
+  };
+
+  const handlePasswordConfirm = () => {
+    if (pendingId === null || pendingRect === null) return;
+    setShowPassword(false);
+    setCardRect(pendingRect);
+    setFlippingId(pendingId);
+    setPendingId(null);
+    setPendingRect(null);
+  };
+
+  const handlePasswordClose = () => {
+    setShowPassword(false);
+    setPendingId(null);
+    setPendingRect(null);
   };
 
   useEffect(() => {
@@ -47,6 +154,12 @@ export default function Work() {
 
   return (
     <>
+      {showPassword && (
+        <PasswordModal
+          onConfirm={handlePasswordConfirm}
+          onClose={handlePasswordClose}
+        />
+      )}
       <section
         id="trabalho"
         ref={sectionRef}

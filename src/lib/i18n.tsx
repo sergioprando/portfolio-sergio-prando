@@ -59,7 +59,8 @@ const translations: Record<Lang, Translations> = {
       stats: [
         { value: "10+", label: "Anos de\nExperiência" },
         { value: "20+", label: "Projetos\nEnterprise" },
-        { highlight: "Eficiência\ne ROI", items: ["+35% de Arrecadação", "-30% de Custo de Operação"] },
+        { value: "+35%", label: "de Arrecadação" },
+        { value: "-30%", label: "de Custo de\nOperação" },
       ],
       companiesTitle: "Empresas que eu trabalhei",
       companies: [
@@ -73,7 +74,7 @@ const translations: Record<Lang, Translations> = {
     },
     career: {
       title: "Carreira",
-      cvButton: "Meu Curriculum",
+      cvButton: "Meu Currículo",
       bioTitle: "Minha caminhada até aqui:",
       bio: "Estou na estrada de Inovação Digital e Design há mais de 10 anos. Nesse meio tempo eu tive grandes oportunidades e muitas dores de cabeça, mas em todas elas eu consegui gerar muito impacto com o meu trabalho e transformar a vida das pessoas. Meu trabalho circula entre mais de uma área profissional: UX Strategy, Research, UI Design e mais recentemente a famosa área de Design Engineering.",
       deliversTitle: "O que entrego:",
@@ -110,7 +111,8 @@ const translations: Record<Lang, Translations> = {
       stats: [
         { value: "10+", label: "Years of\nExperience" },
         { value: "20+", label: "Enterprise\nProjects" },
-        { highlight: "Efficiency\n& ROI", items: ["+35% Revenue Growth", "-30% Operating Cost"] },
+        { value: "+35%", label: "Revenue\nGrowth" },
+        { value: "-30%", label: "Operating\nCost" },
       ],
       companiesTitle: "Companies I've worked with",
       companies: [

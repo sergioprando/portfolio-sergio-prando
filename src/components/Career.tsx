@@ -5,9 +5,9 @@ import { useLang } from "@/lib/i18n";
 import { useReveal } from "@/lib/useReveal";
 
 const certs = [
-  { src: "/cert-uxpm1.png",       alt: "UX PM Certification Level 1" },
-  { src: "/cert-certiprof.png",   alt: "Scrum Certiprof" },
-  { src: "/cert-ux-unicornio.png",alt: "UX Unicórnio" },
+  { src: "/cert-uxpm1.png",       alt: "UX PM Certification Level 1", label: "UX PM1"       },
+  { src: "/cert-certiprof.png",   alt: "Scrum Certiprof",             label: "Certprof"     },
+  { src: "/cert-ux-unicornio.png",alt: "UX Unicórnio",               label: "UX Unicórnio" },
 ];
 
 export default function Career() {
@@ -64,6 +64,15 @@ export default function Career() {
                 <p className="text-base leading-relaxed">{career.bio}</p>
               </div>
 
+              <a
+                href="/sergio-prando-cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-center md:w-auto md:self-start rounded-full border border-[#1F2937] px-6 py-2 text-sm font-normal uppercase tracking-widest text-[#1F2937] transition-all duration-200 hover:bg-[#FFBB1E] hover:border-[#FFBB1E]"
+              >
+                {career.cvButton}
+              </a>
+
               <div>
                 <h3 className="text-lg font-bold mb-3">{career.deliversTitle}</h3>
                 <ul className="flex flex-col gap-3">
@@ -87,15 +96,6 @@ export default function Career() {
                 </ul>
               </div>
 
-              <a
-                href="/sergio-prando-cv.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full text-center md:w-auto md:self-start rounded-full border border-[#1F2937] px-6 py-2 text-sm font-normal uppercase tracking-widest text-[#1F2937] transition-all duration-200 hover:bg-[#FFBB1E] hover:border-[#FFBB1E]"
-              >
-                {career.cvButton}
-              </a>
-
               {/* Certificações */}
               <div id="certificacoes" className="pt-4">
                 <h2 className="text-[44px] font-normal text-[#1F2937] mb-8">
@@ -103,12 +103,15 @@ export default function Career() {
                 </h2>
                 <div className="flex flex-wrap gap-8 items-center">
                   {certs.map((cert) => (
-                    <div key={cert.alt} className="h-28 flex items-center">
-                      <img
-                        src={cert.src}
-                        alt={cert.alt}
-                        className="h-full w-auto object-contain"
-                      />
+                    <div key={cert.alt} className="flex flex-col items-center gap-2">
+                      <div className="h-28 flex items-center">
+                        <img
+                          src={cert.src}
+                          alt={cert.alt}
+                          className="h-full w-auto object-contain"
+                        />
+                      </div>
+                      <span className="text-sm font-medium text-[#1F2937]">{cert.label}</span>
                     </div>
                   ))}
                 </div>
