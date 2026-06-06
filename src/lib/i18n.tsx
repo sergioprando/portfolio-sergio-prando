@@ -59,8 +59,7 @@ const translations: Record<Lang, Translations> = {
       stats: [
         { value: "10+", label: "Anos de\nExperiência" },
         { value: "20+", label: "Projetos\nEnterprise" },
-        { value: "+35%", label: "de Arrecadação" },
-        { value: "-30%", label: "de Custo de\nOperação" },
+        { highlight: "+35% de Arrecadação\n-30% de Custo de\nOperação", items: [] },
       ],
       companiesTitle: "Empresas que eu trabalhei",
       companies: [
@@ -111,8 +110,7 @@ const translations: Record<Lang, Translations> = {
       stats: [
         { value: "10+", label: "Years of\nExperience" },
         { value: "20+", label: "Enterprise\nProjects" },
-        { value: "+35%", label: "Revenue\nGrowth" },
-        { value: "-30%", label: "Operating\nCost" },
+        { highlight: "+35% Revenue\n-30% Operating\nCost", items: [] },
       ],
       companiesTitle: "Companies I've worked with",
       companies: [
