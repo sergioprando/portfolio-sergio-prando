@@ -5,6 +5,7 @@ import Work from '@/components/Work'
 import Career from '@/components/Career'
 import WhatsAppFAB from '@/components/WhatsAppFAB'
 import Footer from '@/components/Footer'
+import BookingPanel from '@/components/BookingPanel'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         </main>
         <Footer />
         <WhatsAppFAB />
+        <BookingPanel />
       </div>
     </LanguageProvider>
   )
