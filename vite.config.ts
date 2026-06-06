@@ -11,5 +11,12 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    proxy: {
+      '/api': {
+        target: 'https://www.sergioprando.com.br',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
 })

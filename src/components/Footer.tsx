@@ -5,7 +5,6 @@ import { useLang } from "@/lib/i18n";
 const nextStepsLinks = [
   { icon: "/icon-ux.svg",          labelPt: "Consultoria em UX",      labelEn: "UX Consulting",       href: "#contato" },
   { icon: "/icon-mentorship.svg",  labelPt: "UX Design Mentorship",   labelEn: "UX Design Mentorship",href: "#contato" },
-  { icon: "/icon-meeting.svg",     labelPt: "Agendar uma reunião",    labelEn: "Schedule a meeting",  href: "#contato" },
 ];
 
 const socialLinks = [
