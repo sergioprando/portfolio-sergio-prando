@@ -23,28 +23,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       weekday: "long", day: "numeric", month: "long", year: "numeric",
     });
 
-    const event = await calendar.events.insert({
+    // Link fixo de Google Meet (conta pessoal não suporta geração dinâmica via API)
+    const meetLink = "https://meet.google.com/muv-bxow-uuf";
+
+    await calendar.events.insert({
       calendarId: CALENDAR_ID,
-      conferenceDataVersion: 1,
-      // sendUpdates "none" — Service Account no Gmail não pode convidar attendees
       sendUpdates: "none",
       requestBody: {
         summary: `[Portfólio] Reunião com ${name}${subject ? " — " + subject : ""}`,
-        description: `Reunião agendada pelo portfólio de Sergio Prando.\n\nAssunto: ${subject || "Não informado"}\nContato: ${email}`,
+        description: `Reunião agendada pelo portfólio de Sergio Prando.\n\nAssunto: ${subject || "Não informado"}\nContato: ${email}\nLink Meet: ${meetLink}`,
         start: { dateTime: startDateTime, timeZone: "America/Sao_Paulo" },
         end:   { dateTime: endDateTime,   timeZone: "America/Sao_Paulo" },
-        conferenceData: {
-          createRequest: {
-            requestId: `portfolio-${Date.now()}`,
-            conferenceSolutionKey: { type: "hangoutsMeet" },
-          },
-        },
+        location: meetLink,
       },
     });
-
-    const meetLink = event.data.conferenceData?.entryPoints?.find(
-      (e) => e.entryPointType === "video"
-    )?.uri;
 
     // Envia e-mail de confirmação ao visitante via Resend
     await resend.emails.send({
