@@ -119,7 +119,7 @@ export default function Hero() {
                   <>
                     <p className="text-lg font-bold leading-snug text-[#1F2937] whitespace-pre">{stat.highlight}</p>
                     {stat.items?.map((item) => (
-                      <p key={item} className="mt-1 text-xs text-[#1F2937]">{item}</p>
+                      <p key={item} className="mt-1 text-sm leading-snug text-[#1F2937]">{item}</p>
                     ))}
                   </>
                 )}
