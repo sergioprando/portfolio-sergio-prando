@@ -506,7 +506,7 @@ function RetentometroCarousel() {
             <button
               onClick={() => setLightbox(false)}
               aria-label="Fechar lightbox"
-              className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
+              className="absolute top-5 right-5 z-30 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
             >
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" d="M18 6L6 18M6 6l12 12"/>
@@ -703,7 +703,7 @@ function SaudeCarousel() {
             <button
               onClick={() => setLightbox(false)}
               aria-label="Fechar lightbox"
-              className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
+              className="absolute top-5 right-5 z-30 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
             >
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" d="M18 6L6 18M6 6l12 12"/>
@@ -726,6 +726,7 @@ function SaudeCarousel() {
                 style={{ height: "85vh", aspectRatio: "780 / 1739" }}
               >
                 {isPortraitMobile && <RotateHint />}
+
                 <AnimatePresence initial={false} custom={dir} mode="wait">
                   <motion.img
                     key={index}
@@ -1049,7 +1050,7 @@ function TecExpressCarousel() {
             <button
               onClick={() => setLightbox(false)}
               aria-label="Fechar lightbox"
-              className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
+              className="absolute top-5 right-5 z-30 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
             >
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" d="M18 6L6 18M6 6l12 12"/>
@@ -1393,7 +1394,7 @@ function VtalConectaCarousel() {
             <button
               onClick={() => setLightbox(false)}
               aria-label="Fechar lightbox"
-              className="absolute top-5 right-5 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
+              className="absolute top-5 right-5 z-30 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center text-white transition-colors cursor-pointer"
             >
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" d="M18 6L6 18M6 6l12 12"/>
