@@ -117,7 +117,7 @@ export default function Hero() {
                   </>
                 ) : (
                   <>
-                    <p className="text-lg font-bold leading-snug text-[#1F2937] whitespace-pre-line">{stat.highlight}</p>
+                    <p className="text-lg font-bold leading-snug text-[#1F2937] whitespace-pre">{stat.highlight}</p>
                     {stat.items?.map((item) => (
                       <p key={item} className="mt-1 text-xs text-[#1F2937]">{item}</p>
                     ))}
@@ -205,7 +205,7 @@ export default function Hero() {
                     </>
                   ) : (
                     <>
-                      <p className="text-2xl font-bold leading-snug text-[#1F2937] whitespace-pre-line">{stat.highlight}</p>
+                      <p className="text-2xl font-bold leading-snug text-[#1F2937] whitespace-pre">{stat.highlight}</p>
                       {stat.items?.map((item) => (
                         <p key={item} className="mt-1 text-base text-[#1F2937]">{item}</p>
                       ))}
