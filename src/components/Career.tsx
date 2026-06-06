@@ -42,7 +42,7 @@ export default function Career() {
               {/* Mobile photo */}
               <div className="w-full rounded-2xl overflow-hidden md:hidden">
                 <img
-                  src="/foto-carreira-mobile.png"
+                  src="/foto-carreira-mobile-v3.png"
                   alt="Sergio Prando"
                   className="w-full h-full object-cover"
                 />
@@ -50,7 +50,7 @@ export default function Career() {
               {/* Desktop photo */}
               <div className="w-full rounded-2xl overflow-hidden hidden md:block">
                 <img
-                  src="/foto-carreira.png"
+                  src="/foto-carreira-v3.png"
                   alt="Sergio Prando"
                   className="w-full h-full object-cover"
                 />
