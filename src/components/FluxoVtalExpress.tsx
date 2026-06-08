@@ -56,8 +56,6 @@ export default function FluxoVtalExpress() {
   const y2 = y1 + 110;        // Row 2
   const yD1 = y2 + 110;       // Diamond 1
   const y3C = yD1 + 108;      // Node 2C
-  const yD2 = yD1;            // Diamond 2 (mesma linha do diamond 1)
-  const y4B = yD2 + 100;      // Node 4B  / Node 2D / Aviso
 
   const n1  = node(c1.cx, y1,  200, NH);
   const n2  = node(c2.cx, y1,  230, NH);

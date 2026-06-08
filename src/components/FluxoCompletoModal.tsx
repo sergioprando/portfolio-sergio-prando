@@ -202,7 +202,6 @@ function FluxoFase3() {
   const yD = y3;
   const y4 = y3 + 106;
   const laneBot = y4 + 46;
-  const legendY = laneBot + 14;
 
   const n11  = nr(c3.cx, y1,  240, NH);
   const n11B = nr(c2.cx, y1,  230, 68);
