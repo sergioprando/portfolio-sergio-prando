@@ -38,6 +38,51 @@ interface Translations {
     certsTitle: string;
     certsCaption: string;
   };
+  modals: {
+    close: string;
+    rotate: { title: string; subtitle: string };
+    contact: {
+      title: string;
+      subtitle: string;
+      namePlaceholder: string;
+      emailPlaceholder: string;
+      messagePlaceholder: string;
+      send: string;
+      sending: string;
+      successTitle: string;
+      successText: string;
+      errors: { name: string; email: string; emailInvalid: string; message: string };
+      sendError: string;
+    };
+    booking: {
+      tabLabel: string;
+      title: string;
+      subtitle: string;
+      steps: { date: string; time: string; form: string };
+      noSlots: string;
+      chooseAnother: string;
+      namePlaceholder: string;
+      emailPlaceholder: string;
+      subjectPlaceholder: string;
+      confirm: string;
+      doneTitle: string;
+      doneText: string;
+      openMeet: string;
+      months: string[];
+      days: string[];
+    };
+    cases: {
+      projectChallenge: string;
+      designStrategy: string;
+      resultsTitle: string;
+      designToolkit: string;
+      projectImpact: string;
+      startJourneyAsIs: string;
+      startJourneyToBe: string;
+      bradesco: { strategyTitle: string; keyPainPoints: string; discoveryFootnote: string };
+      nio: { strategyTitle: string };
+    };
+  };
 }
 
 const translations: Record<Lang, Translations> = {
@@ -84,12 +129,69 @@ const translations: Record<Lang, Translations> = {
       ],
       numbersTitle: "Alguns números que me orgulho:",
       numbers: [
-        "Redução de 30% no retrabalho através de Design Ops e Systems.",
+        "Redução de 30% no custo de operações por retrabalho através de Design Ops e Systems.",
         "Otimização de fluxos críticos de D+7 para D+0 (aumento de 20% em conversão).",
         "Redução de 25% no volume de chamados via automação inteligente (Nível 1).",
       ],
       certsTitle: "Certificações",
       certsCaption: "Design e Experiência do Usuário",
+    },
+    modals: {
+      close: "Fechar",
+      rotate: {
+        title: "Vire o seu celular na horizontal",
+        subtitle: "para uma melhor visualização",
+      },
+      contact: {
+        title: "Vamos Conversar",
+        subtitle: "Fico feliz pelo seu interesse no meu trabalho, como eu posso te ajudar hoje?",
+        namePlaceholder: "Seu nome",
+        emailPlaceholder: "Seu email",
+        messagePlaceholder: "Sua mensagem",
+        send: "Enviar mensagem",
+        sending: "Enviando…",
+        successTitle: "Email enviado com sucesso!",
+        successText: "Sua mensagem foi enviada com sucesso, logo vamos conversar sobre como podemos trabalhar juntos.",
+        errors: {
+          name: "Você não preencheu o campo de nome.",
+          email: "Você não preencheu o campo de e-mail.",
+          emailInvalid: "Preciso que você coloque um e-mail válido para que eu possa respondê-lo.",
+          message: "Você não preencheu o campo de mensagem.",
+        },
+        sendError: "Erro ao enviar. Tente novamente.",
+      },
+      booking: {
+        tabLabel: "Agendar reunião",
+        title: "Agendar uma reunião",
+        subtitle: "30 min · Google Meet · Grátis",
+        steps: { date: "Escolha a data", time: "Escolha o horário", form: "Seus dados" },
+        noSlots: "Sem horários disponíveis",
+        chooseAnother: "Escolha outra data.",
+        namePlaceholder: "Nome completo",
+        emailPlaceholder: "E-mail",
+        subjectPlaceholder: "Assunto da reunião (opcional)",
+        confirm: "Confirmar agendamento",
+        doneTitle: "Reunião agendada!",
+        doneText: "Confira seu e-mail para o link do Google Meet.",
+        openMeet: "Abrir Google Meet",
+        months: ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],
+        days: ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"],
+      },
+      cases: {
+        projectChallenge: "Desafio do Projeto",
+        designStrategy: "Estratégia de Design e Execução",
+        resultsTitle: "Resultado e Entrega de Valor",
+        designToolkit: "Design Toolkit",
+        projectImpact: "Impacto do Projeto",
+        startJourneyAsIs: "Iniciar Jornada As Is",
+        startJourneyToBe: "Iniciar Jornada To Be",
+        bradesco: {
+          strategyTitle: "Estratégia de Design focada em Valor e Viabilidade",
+          keyPainPoints: "Principais Dores Mapeadas:",
+          discoveryFootnote: "Entrevista em profundidade | 16 pessoas | Tempo Médio 30min",
+        },
+        nio: { strategyTitle: "Pilares do Design Engineering no Projeto" },
+      },
     },
   },
   en: {
@@ -141,6 +243,63 @@ const translations: Record<Lang, Translations> = {
       ],
       certsTitle: "Certifications",
       certsCaption: "Design and User Experience",
+    },
+    modals: {
+      close: "Close",
+      rotate: {
+        title: "Rotate your phone to landscape",
+        subtitle: "for a better viewing experience",
+      },
+      contact: {
+        title: "Let's Talk",
+        subtitle: "I'm glad you're interested in my work — how can I help you today?",
+        namePlaceholder: "Your name",
+        emailPlaceholder: "Your email",
+        messagePlaceholder: "Your message",
+        send: "Send message",
+        sending: "Sending…",
+        successTitle: "Email sent successfully!",
+        successText: "Your message was sent successfully — we'll soon be talking about how we can work together.",
+        errors: {
+          name: "Please fill in the name field.",
+          email: "Please fill in the email field.",
+          emailInvalid: "Please enter a valid email address so I can reply to you.",
+          message: "Please fill in the message field.",
+        },
+        sendError: "Failed to send. Please try again.",
+      },
+      booking: {
+        tabLabel: "Schedule a meeting",
+        title: "Schedule a meeting",
+        subtitle: "30 min · Google Meet · Free",
+        steps: { date: "Choose a date", time: "Choose a time", form: "Your details" },
+        noSlots: "No available slots",
+        chooseAnother: "Please choose another date.",
+        namePlaceholder: "Full name",
+        emailPlaceholder: "Email",
+        subjectPlaceholder: "Meeting subject (optional)",
+        confirm: "Confirm booking",
+        doneTitle: "Meeting booked!",
+        doneText: "Check your email for the Google Meet link.",
+        openMeet: "Open Google Meet",
+        months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+        days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+      },
+      cases: {
+        projectChallenge: "Project Challenge",
+        designStrategy: "Design Strategy & Execution",
+        resultsTitle: "Results & Value Delivery",
+        designToolkit: "Design Toolkit",
+        projectImpact: "Project Impact",
+        startJourneyAsIs: "Start As Is Journey",
+        startJourneyToBe: "Start To Be Journey",
+        bradesco: {
+          strategyTitle: "Design Strategy focused on Value and Feasibility",
+          keyPainPoints: "Key Pain Points Mapped:",
+          discoveryFootnote: "In-depth interview | 16 people | Average time 30 min",
+        },
+        nio: { strategyTitle: "Design Engineering Pillars in the Project" },
+      },
     },
   },
 };
