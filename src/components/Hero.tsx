@@ -40,8 +40,16 @@ export default function Hero() {
   const companiesTitleRef = useRef<HTMLHeadingElement>(null);
   const companiesRef      = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const [winWidth, setWinWidth] = useState(1440);
 
   useEffect(() => { setLoaded(true); }, []);
+
+  useEffect(() => {
+    const update = () => setWinWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update, { passive: true });
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,10 +64,14 @@ export default function Hero() {
 
       if (scrollY <= fadeStart) {
         avatar.style.opacity = "1";
+        avatar.style.filter = "blur(0px)";
       } else if (scrollY >= fadeEnd) {
         avatar.style.opacity = "0";
+        avatar.style.filter = "blur(12px)";
       } else {
-        avatar.style.opacity = String(1 - (scrollY - fadeStart) / (fadeEnd - fadeStart));
+        const progress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+        avatar.style.opacity = String(1 - progress);
+        avatar.style.filter = `blur(${(progress * 12).toFixed(1)}px)`;
       }
     };
 
@@ -147,94 +159,103 @@ export default function Hero() {
       </div>
 
       {/* ── Desktop layout ── */}
-      <div className="hidden md:block relative min-h-[calc(100vh-67px)]">
+      <div className="hidden md:block relative overflow-hidden" style={{ height: "calc(100vh - 67px)" }}>
 
-        {/* Avatar com fade no scroll */}
-        <div ref={avatarRef} style={{ transition: "opacity 0.1s linear" }} className="absolute right-0 top-0 -mt-[5%] w-[768px] h-[984px] pointer-events-none select-none">
+        {/* Avatar — escala com a altura da viewport */}
+        <div
+          ref={avatarRef}
+          style={{ height: "100%", width: "auto", transition: "opacity 0.1s linear" }}
+          className="absolute right-0 top-0 pointer-events-none select-none"
+        >
           <img
             src="/avatar.png"
             alt="Sergio Prando"
-            className="object-contain object-bottom w-full h-full"
+            style={{ height: "100%", width: "auto" }}
+            className="object-contain object-bottom"
           />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 mx-auto max-w-[1440px] px-8">
-          <div className="max-w-[680px] pt-10 pb-10">
+        {/* Texto — 55% da largura do container */}
+        <div className="relative z-10 h-full flex flex-col justify-start pt-10 mx-auto w-full max-w-[1440px] px-8">
 
-            <h1
-              style={textAnim(0)}
-              className={[
-                "font-bold leading-none tracking-tight text-[#1F2937]",
-                lang === "en" ? "text-[64px]" : "text-[88px]",
-              ].join(" ")}
+          <h1
+            style={{ ...textAnim(0), fontSize: `clamp(48px, ${lang === "en" ? "4.8vw" : "6vw"}, ${lang === "en" ? "64px" : "88px"})` }}
+            className="font-bold leading-none tracking-tight text-[#1F2937]"
+          >
+            {t.hero.greeting}
+          </h1>
+
+          <div ref={subtitleBlockRef} style={{
+            marginTop: "3vh",
+            marginLeft: winWidth <= 1280 ? "22%" : "28%",
+            marginRight: "-10%",
+          }}>
+            <h2
+              style={{ ...textAnim(150), fontSize: "clamp(28px, 3.6vw, 52px)" }}
+              className="font-medium leading-tight text-[#1F2937]"
             >
-              {t.hero.greeting}
-            </h1>
+              {t.hero.name}
+            </h2>
 
-            <div ref={subtitleBlockRef} className="mt-12 ml-[30%] -mr-[15%]">
-              <h2 style={textAnim(150)} className="text-[52px] font-medium leading-tight text-[#1F2937] text-right -mr-[9%]">
-                {t.hero.name}
-              </h2>
+            {lang === "pt" ? (
+              <p style={{ ...textAnim(300), fontSize: "clamp(16px, 1.6vw, 24px)" }} className="mt-3 leading-relaxed text-[#1F2937]">
+                {t.hero.role}<br />
+                {t.hero.specialty}
+              </p>
+            ) : (
+              <div style={textAnim(300)} className="mt-3">
+                <p style={{ fontSize: "clamp(16px, 1.6vw, 24px)" }} className="leading-relaxed text-[#1F2937]">{t.hero.role}</p>
+                <p style={{ fontSize: "clamp(16px, 1.6vw, 24px)" }} className="leading-relaxed text-[#1F2937]">{t.hero.specialty}</p>
+              </div>
+            )}
+          </div>
 
-              {lang === "pt" ? (
-                <p style={textAnim(300)} className="mt-4 text-2xl leading-[38px] text-[#1F2937] pl-[19%] -mr-[9%]">
-                  {t.hero.role}<br />
-                  {t.hero.specialty}
-                </p>
-              ) : (
-                <div style={textAnim(300)} className="mt-4 flex justify-end -mr-[9%]">
-                  <div>
-                    <p className="text-2xl leading-[38px] text-[#1F2937]">{t.hero.role}</p>
-                    <p className="text-2xl leading-[38px] text-[#1F2937]">{t.hero.specialty}</p>
+          {/* Stats */}
+          <div style={{ marginTop: "3vh" }} className="flex items-start gap-10">
+            {stats.map((stat, i) => (
+              <div key={i}>
+                {"value" in stat ? (
+                  <>
+                    <p style={{ fontSize: "clamp(40px, 4.5vw, 64px)" }} className="font-bold leading-none text-[#1F2937]">
+                      <CountUp value={stat.value} />
+                    </p>
+                    <p className="mt-2 text-base leading-snug text-[#1F2937] whitespace-pre-line">{stat.label}</p>
+                  </>
+                ) : (
+                  <>
+                    <p style={{ fontSize: "clamp(18px, 1.6vw, 24px)" }} className="font-bold leading-snug text-[#1F2937] whitespace-pre">{stat.highlight}</p>
+                    {stat.items?.map((item) => (
+                      <p key={item} className="mt-1 text-base text-[#1F2937]">{item}</p>
+                    ))}
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Companies */}
+          <div style={{ marginTop: "4vh" }}>
+            <h3
+              ref={companiesTitleRef}
+              style={{ fontSize: "clamp(28px, 3vw, 44px)" }}
+              className="font-normal text-[#1F2937]"
+            >
+              {companiesTitle}
+            </h3>
+            <div ref={companiesRef} className="mt-6 flex items-start gap-8">
+              {companies.map((company) => (
+                <div key={company.alt}>
+                  <div className="relative h-12 w-44">
+                    <img src={company.src} alt={company.alt} className="absolute inset-0 w-full h-full object-contain object-left" />
                   </div>
-                </div>
-              )}
-            </div>
-
-            {/* Stats */}
-            <div className="mt-12 flex items-start gap-10">
-              {stats.map((stat, i) => (
-                <div key={i}>
-                  {"value" in stat ? (
-                    <>
-                      <p className="text-[64px] font-bold leading-none text-[#1F2937]">
-                        <CountUp value={stat.value} />
-                      </p>
-                      <p className="mt-2 text-base leading-snug text-[#1F2937] whitespace-pre-line">{stat.label}</p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-2xl font-bold leading-snug text-[#1F2937] whitespace-pre">{stat.highlight}</p>
-                      {stat.items?.map((item) => (
-                        <p key={item} className="mt-1 text-base text-[#1F2937]">{item}</p>
-                      ))}
-                    </>
-                  )}
+                  <p className="mt-2 max-w-[180px] text-sm leading-snug text-[#1F2937]/80">
+                    {company.description}
+                  </p>
                 </div>
               ))}
             </div>
-
-            {/* Companies */}
-            <div className="mt-14">
-              <h3 ref={companiesTitleRef} className="text-[44px] font-normal text-[#1F2937]">
-                {companiesTitle}
-              </h3>
-              <div ref={companiesRef} className="mt-6 flex items-start gap-8">
-                {companies.map((company) => (
-                  <div key={company.alt}>
-                    <div className="relative h-12 w-44">
-                      <img src={company.src} alt={company.alt} className="absolute inset-0 w-full h-full object-contain object-left" />
-                    </div>
-                    <p className="mt-2 max-w-[180px] text-sm leading-snug text-[#1F2937]/80">
-                      {company.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
           </div>
+
         </div>
       </div>
 
