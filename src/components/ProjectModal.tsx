@@ -89,7 +89,7 @@ const bradesco: Record<Lang, {
   pt: {
     stats: [
       { value: "D+7 > D+0", label: "Dias de espera para resposta o time Bradesco" },
-      { value: "+19%",       label: "Na Reversão de Cancelamento" },
+      { value: "+20%",       label: "Na Reversão de Cancelamento" },
       { value: "-42%",       label: "No retrabalho do Setor" },
     ],
     strategyIntro: "O desafio era transformar um processo Enterprise complexo em algo eficiente. Estruturei o processo de design para garantir a entrega de valor contínuo:",
@@ -104,7 +104,7 @@ const bradesco: Record<Lang, {
     resultsIntro: "O Discovery técnico e o design focado em automação, não entregamos apenas telas, mas uma nova capacidade operacional para a Bradesco Seguros. A transição do caos das planilhas para a precisão do Salesforce via Mulesoft permitiu que o time de retenção agisse com a velocidade que o mercado Enterprise exige.",
     results: [
       { highlight: "Eficiência de Tempo:", text: "Redução drástica de 7 dias de espera para 0 dias. Eliminamos a 'janela da angústia' do cliente B2B, permitindo que a contraproposta fosse gerada instantaneamente, capturando o cliente no momento crítico da decisão." },
-      { highlight: "Conversão de Negócio:", text: "Aumento de 19% na Reversão de Cancelamentos. Este número prova que o design não foi apenas estético. Ao reduzir a fricção e o tempo de resposta, impactamos diretamente o OKR principal do projeto, recuperando receita de forma proativa." },
+      { highlight: "Conversão de Negócio:", text: "Aumento de 20% na Reversão de Cancelamentos. Este número prova que o design não foi apenas estético. Ao reduzir a fricção e o tempo de resposta, impactamos diretamente o OKR principal do projeto, recuperando receita de forma proativa." },
       { highlight: "Otimização Operacional:", text: "Redução de 42% no Retrabalho do Setor. Liderei o design focado em usabilidade e adoção rápida. Ao eliminar planilhas e processos manuais morosos, devolvemos quase metade do tempo produtivo da equipe, que agora foca em análises estratégicas, não em tarefas operacionais." },
     ],
     toolkit: [
@@ -118,7 +118,7 @@ const bradesco: Record<Lang, {
   en: {
     stats: [
       { value: "D+7 > D+0", label: "Days of waiting for a response from the Bradesco team" },
-      { value: "+19%",       label: "In Cancellation Reversal" },
+      { value: "+20%",       label: "In Cancellation Reversal" },
       { value: "-42%",       label: "In Sector Rework" },
     ],
     strategyIntro: "The challenge was to transform a complex Enterprise process into something efficient. I structured the design process to ensure continuous value delivery:",
@@ -133,7 +133,7 @@ const bradesco: Record<Lang, {
     resultsIntro: "From the technical Discovery and automation-focused design, we delivered not just screens but a new operational capability for Bradesco Seguros. The transition from spreadsheet chaos to Salesforce precision via Mulesoft allowed the retention team to act at the speed the Enterprise market demands.",
     results: [
       { highlight: "Time Efficiency:", text: "Drastic reduction from 7 days of waiting to 0. We eliminated the B2B client's 'anxiety window', allowing the counter-proposal to be generated instantly, capturing the customer at the critical moment of decision." },
-      { highlight: "Business Conversion:", text: "19% increase in Cancellation Reversals. This number proves the design wasn't merely aesthetic. By reducing friction and response time, we directly impacted the project's main OKR, proactively recovering revenue." },
+      { highlight: "Business Conversion:", text: "20% increase in Cancellation Reversals. This number proves the design wasn't merely aesthetic. By reducing friction and response time, we directly impacted the project's main OKR, proactively recovering revenue." },
       { highlight: "Operational Optimisation:", text: "42% reduction in Sector Rework. I led design focused on usability and rapid adoption. By eliminating slow spreadsheets and manual processes, we gave back nearly half the team's productive time, which now focuses on strategic analysis rather than operational tasks." },
     ],
     toolkit: [

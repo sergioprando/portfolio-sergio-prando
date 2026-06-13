@@ -96,8 +96,8 @@ export default function Career() {
                 </ul>
               </div>
 
-              {/* Certificações */}
-              <div id="certificacoes" className="pt-4">
+              {/* Certificações — temporariamente oculto */}
+              <div id="certificacoes" className="pt-4 hidden">
                 <h2 className="text-[44px] font-normal text-[#1F2937] mb-8">
                   {career.certsTitle}
                 </h2>

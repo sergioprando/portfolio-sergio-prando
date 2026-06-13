@@ -104,7 +104,7 @@ const translations: Record<Lang, Translations> = {
       stats: [
         { value: "10+", label: "Anos de\nExperiência" },
         { value: "20+", label: "Projetos\nEnterprise" },
-        { highlight: "+35% de Arrecadação\n-30% de Custo de Operação", items: ["Eficiência e Impacto real"] },
+        { highlight: "+20% reversão de cancelamentos\n-20% de Retrabalho (Design Ops)", items: ["Eficiência e Impacto real"] },
       ],
       companiesTitle: "Empresas que eu trabalhei",
       companies: [
@@ -129,7 +129,7 @@ const translations: Record<Lang, Translations> = {
       ],
       numbersTitle: "Alguns números que me orgulho:",
       numbers: [
-        "Redução de 30% no custo de operações por retrabalho através de Design Ops e Systems.",
+        "Redução de 20% de retrabalho através de Design Ops e Systems.",
         "Otimização de fluxos críticos de D+7 para D+0 (aumento de 20% em conversão).",
         "Redução de 25% no volume de chamados via automação inteligente (Nível 1).",
       ],
@@ -212,7 +212,7 @@ const translations: Record<Lang, Translations> = {
       stats: [
         { value: "10+", label: "Years of\nExperience" },
         { value: "20+", label: "Enterprise\nProjects" },
-        { highlight: "+35% Revenue Growth\n-30% Operating Cost", items: ["Efficiency & Real Impact"] },
+        { highlight: "+35% Revenue Growth\n-20% Rework (Design Ops)", items: ["Efficiency & Real Impact"] },
       ],
       companiesTitle: "Companies I've worked with",
       companies: [
@@ -237,7 +237,7 @@ const translations: Record<Lang, Translations> = {
       ],
       numbersTitle: "Numbers I'm proud of:",
       numbers: [
-        "30% reduction in rework through Design Ops and Systems.",
+        "20% reduction in rework through Design Ops and Systems.",
         "Optimisation of critical flows from D+7 to D+0 (20% increase in conversion).",
         "25% reduction in support tickets through intelligent automation (Level 1).",
       ],

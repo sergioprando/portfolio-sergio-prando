@@ -16,7 +16,7 @@ interface Props {
 
 const stats = [
   { value: "D+7 > D+0", label: "Dias de espera para resposta o time Bradesco" },
-  { value: "+19%",      label: "Na Reversão de Cancelamento" },
+  { value: "+20%",      label: "Na Reversão de Cancelamento" },
   { value: "-42%",      label: "No retrabalho do Setor" },
 ];
 
@@ -35,7 +35,7 @@ const results = [
   },
   {
     highlight: "Conversão de Negócio:",
-    text: "Aumento de 19% na Reversão de Cancelamentos. Este número prova que o design não foi apenas estético. Ao reduzir a fricção e o tempo de resposta, impactamos diretamente o OKR principal do projeto, recuperando receita de forma proativa.",
+    text: "Aumento de 20% na Reversão de Cancelamentos. Este número prova que o design não foi apenas estético. Ao reduzir a fricção e o tempo de resposta, impactamos diretamente o OKR principal do projeto, recuperando receita de forma proativa.",
   },
   {
     highlight: "Otimização Operacional:",
