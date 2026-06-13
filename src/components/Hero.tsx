@@ -103,7 +103,7 @@ export default function Hero() {
 
       {/* ── Mobile layout ── */}
       <div className="flex flex-col items-center px-6 pt-8 pb-10 md:hidden">
-        <div className="relative w-52 h-52 rounded-full overflow-hidden bg-[#F0C040] flex-shrink-0">
+        <div className="relative w-[min(71vw,270px)] sm:w-[min(80vw,460px)] aspect-square rounded-full overflow-hidden bg-[#F0C040] flex-shrink-0 sm:flex-shrink-0">
           <img src="/avatar.png" alt="Sergio Prando" className="absolute inset-0 w-full h-full object-cover object-top" />
         </div>
         <div className="w-full mt-6">

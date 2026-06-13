@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { CardRect } from "@/components/Work";
 import FluxoAutomacao from "@/components/FluxoAutomacao";
+import FluxoNio from "@/components/FluxoNio";
 import FluxoVtalExpress from "@/components/FluxoVtalExpress";
 import FluxoCompletoModal from "@/components/FluxoCompletoModal";
 import JornadaAsIs from "@/components/JornadaAsIs";
@@ -1865,12 +1866,13 @@ const nio: Record<Lang, {
     ],
     strategyIntro: "Neste cenário, meu foco como Designer foi converter processos burocráticos de cobrança em fluxos conversacionais fluidos:",
     strategy: [
-      { title: "Otimização de Custos (OPEX)", text: "Substituição de fluxos manuais de call center por uma interface conversacional de IA, reduzindo drasticamente o custo por atendimento." },
-      { title: "Desenho da Jornada do Agente", text: "Design de fluxos de negociação automatizados que permitem ao cliente resolver pendências financeiras sem atrito, aumentando o cash-in da companhia." },
-      { title: "Escalabilidade Ativa", text: "Implementação de uma lógica de \"Agente Ativo\", onde a IA não apenas responde, mas inicia o contato de forma inteligente baseada no perfil do usuário." },
-      { title: "Pesquisa Comportamental em Escala", text: "Conduzimos uma análise quantitativa com uma massa crítica de mais de 100 usuários, mapeando padrões de resposta, pontos de fricção e gatilhos de engajamento durante a jornada de negociação." },
-      { title: "Validação Qualitativa com Usuários Reais", text: "Realizamos entrevistas em profundidade com 30 clientes que interagiram diretamente com o Agent NIO. Esse feedback qualitativo foi fundamental para ajustar o tom de voz da IA e garantir que a abordagem ativa fosse percebida como humanizada e resolutiva, e não invasiva." },
-      { title: "Design de Conversação e ROI", text: "Implementamos fluxos de negociação automatizados via Vertex AI Agent Builder, focados na redução do OPEX. A interface foi desenhada para permitir que o cliente resolva pendências financeiras de forma autônoma, impactando diretamente no aumento do cash-in da NIO." },
+      { title: "Desenho da Jornada do Agente", text: "Mapeamos e desenhamos a jornada completa do Agente NIO focada em negociação de dívidas — fluxos que permitem ao cliente resolver pendências financeiras de forma autônoma, reduzindo atrito e aumentando o cash-in da companhia." },
+      { title: "MVP por Texto: Validação com Risco Controlado", text: "Antes de escalar, optamos por um MVP baseado em atendimento por texto (não voz), priorizando canais assíncronos para mapear gaps, fricções e riscos da jornada com menor custo de retrabalho. A decisão de começar por texto foi deliberada: permite auditoria do fluxo conversacional, ajuste de tom de voz da IA e identificação de quebras na jornada antes de qualquer investimento em infraestrutura de voz." },
+      { title: "Arquitetura Ativa em Camadas: HubSpot + N8N", text: "O MVP foi implementado com HubSpot e N8N — plataformas de médio porte, deliberadamente escolhidas para validar a hipótese com custo reduzido antes de comprometer a stack definitiva. Essa decisão de arquitetura reduziu o risco financeiro do projeto e permitiu iterações rápidas na jornada. O fluxo construído no N8N já incorporava a lógica de \"Agente Ativo\": a IA não apenas responde, mas inicia o contato de forma inteligente baseada no perfil do usuário. Validada a ideia, a solução foi migrada e escalada via Vertex AI Agent Builder." },
+      { title: "Validação Interna: Time + Stakeholders", text: "Antes de expor o MVP ao público externo, testamos internamente com nosso time e 10 stakeholders para validar a coerência da jornada, identificar gaps de negócio e ajustar o comportamento do agente. Essa etapa funcionou como teste de mesa estruturado — essencial para não transferir problemas de lógica para usuários reais." },
+      { title: "Pesquisa Comportamental em Escala", text: "Com a jornada validada internamente, conduzimos uma análise quantitativa com mais de 30 usuários internos (time Vtal e NIO), mapeando padrões de resposta, pontos de fricção e gatilhos de engajamento durante a negociação." },
+      { title: "Validação Qualitativa com Usuários Reais", text: "Realizamos entrevistas em profundidade com 10 usuários que interagiram diretamente com o Agente NIO. Esse feedback foi determinante para calibrar o tom de voz da IA e garantir que a abordagem ativa fosse percebida como humanizada e resolutiva — e não invasiva." },
+      { title: "Design de Conversação e ROI", text: "A arquitetura final em Vertex AI Agent Builder consolidou os aprendizados de todas as fases anteriores em fluxos de negociação automatizados focados em redução de OPEX. A interface permite que o cliente resolva pendências financeiras de forma autônoma, com impacto direto no aumento do cash-in da NIO." },
     ],
     results: [
       { highlight: "Otimização Radical de OPEX", text: "A automação de 100% da triagem e dos fluxos iniciais de negociação permitiu uma redução drástica nos custos operacionais. Ao migrar o volume de chamadas de baixa complexidade do Call Center para o Agente de IA, liberamos a força de trabalho humana para tratativas críticas, otimizando o custo por atendimento e escalando a capacidade da NIO sem inflacionar a folha de pagamento." },
@@ -1981,13 +1983,13 @@ function NioContent({ onClose }: { onClose: () => void }) {
           </div>
         </div>
 
-        {/* Strategy + Toolkit */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-[1fr_200px] gap-10">
-          <div>
-            <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">{cs.nio.strategyTitle}</h3>
-            <p className="text-base leading-relaxed text-[#1F2937] mb-5">{data.strategyIntro}</p>
-            <ol className="space-y-5">
-              {data.strategy.map((item, i) => (
+        {/* Strategy */}
+        <div className="mt-12">
+          <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">{cs.nio.strategyTitle}</h3>
+          <p className="text-base leading-relaxed text-[#1F2937] mb-5">{data.strategyIntro}</p>
+          <ol className="space-y-5">
+            {data.strategy.map((item, i) => (
+              <>
                 <li key={i} className="flex gap-4">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1F2937] text-white text-[11px] font-bold flex items-center justify-center mt-0.5">
                     {i + 1}
@@ -1997,20 +1999,23 @@ function NioContent({ onClose }: { onClose: () => void }) {
                     <span className="text-base leading-relaxed text-[#1F2937]">{item.text}</span>
                   </div>
                 </li>
-              ))}
-            </ol>
-          </div>
-          <div>
-            <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">{cs.designToolkit}</h3>
-            <div className="flex flex-col gap-4">
-              {data.toolkit.map((tool) => (
-                <div key={tool.name} className="flex items-center gap-3">
-                  <img src={tool.icon} alt={tool.name} className="w-10 h-10 rounded-xl object-contain flex-shrink-0 bg-white" />
-                  <span className="text-sm text-[#1F2937]">{tool.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+                {i === 0 && (
+                  <li key="fluxo-nio" className="list-none">
+                    <div className="rounded-2xl overflow-hidden border border-black/8 bg-white p-4">
+                      <FluxoNio />
+                    </div>
+                  </li>
+                )}
+                {i === 1 && (
+                  <li key="nio-n8n" className="list-none">
+                    <div className="rounded-2xl overflow-hidden bg-[#D0D2CD]">
+                      <img src="/NION8N.png" alt="NIO — Fluxo N8N MVP" className="w-full h-auto object-cover" />
+                    </div>
+                  </li>
+                )}
+              </>
+            ))}
+          </ol>
         </div>
 
         {/* Results */}
@@ -2028,6 +2033,19 @@ function NioContent({ onClose }: { onClose: () => void }) {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Design Toolkit */}
+        <div className="mt-10 pt-10 border-t border-black/10">
+          <h3 className="text-[22px] font-normal text-[#1F2937] mb-6">{cs.designToolkit}</h3>
+          <div className="flex flex-wrap gap-6">
+            {data.toolkit.map((tool) => (
+              <div key={tool.name} className="flex items-center gap-3">
+                <img src={tool.icon} alt={tool.name} className="w-10 h-10 rounded-xl object-contain flex-shrink-0 bg-white" />
+                <span className="text-sm text-[#1F2937]">{tool.name}</span>
+              </div>
+            ))}
           </div>
         </div>
 

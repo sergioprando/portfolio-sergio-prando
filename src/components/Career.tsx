@@ -40,7 +40,7 @@ export default function Career() {
             {/* Left — photo */}
             <div className="flex flex-col items-start md:w-[42%] flex-shrink-0">
               {/* Mobile photo */}
-              <div className="w-full rounded-2xl overflow-hidden md:hidden">
+              <div className="w-[min(55vw,208px)] sm:w-full mx-auto sm:mx-0 aspect-square sm:aspect-auto rounded-full overflow-hidden md:hidden">
                 <img
                   src="/foto-carreira-mobile-v3.png"
                   alt="Sergio Prando"
