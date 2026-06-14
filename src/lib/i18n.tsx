@@ -92,7 +92,7 @@ const translations: Record<Lang, Translations> = {
         { label: "Sobre Mim",      href: "#sobre" },
         { label: "Trabalho",       href: "#trabalho" },
         { label: "Carreira",       href: "#carreira" },
-        { label: "Certificações",  href: "#certificacoes" },
+        // { label: "Certificações",  href: "#certificacoes" }, // oculto temporariamente
       ],
       cta: "Vamos Conversar",
     },
@@ -200,7 +200,7 @@ const translations: Record<Lang, Translations> = {
         { label: "About Me",       href: "#sobre" },
         { label: "Work",           href: "#trabalho" },
         { label: "Career",         href: "#carreira" },
-        { label: "Certifications", href: "#certificacoes" },
+        // { label: "Certifications", href: "#certificacoes" }, // oculto temporariamente
       ],
       cta: "Let's Talk",
     },
